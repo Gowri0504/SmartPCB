@@ -1,0 +1,41 @@
+========================================================================
+MODEL EVALUATION — defect
+  checkpoint : D:\SmartPCB-XAI\models\defect_best.pt
+  data yaml  : D:\SmartPCB-XAI\datasets\defects\data.yaml
+  alignment  : positional
+  imgsz      : 640   device: cpu   torch: 2.13.0+cpu   cuda: False
+========================================================================
+  model classes (6): ['missing_hole', 'mouse_bite', 'open_circuit', 'short', 'spur', 'spurious_copper']
+  GT classes    (6): ['open', 'short', 'mousebite', 'spur', 'copper', 'pin-hole']
+[defect/val] 150 images from D:\SmartPCB-XAI\datasets\defects\val/images
+  50/150  (56.4s elapsed, 1.13s/img)
+  100/150  (115.9s elapsed, 1.16s/img)
+  150/150  (186.7s elapsed, 1.24s/img)
+[defect/val] GT boxes=930 over 150 images (150 label files present)
+[defect/test] 500 images from D:\SmartPCB-XAI\datasets\defects\test/images
+  50/500  (84.3s elapsed, 1.69s/img)
+  100/500  (165.3s elapsed, 1.65s/img)
+  150/500  (249.2s elapsed, 1.66s/img)
+  200/500  (331.7s elapsed, 1.66s/img)
+  250/500  (416.8s elapsed, 1.67s/img)
+  300/500  (496.3s elapsed, 1.65s/img)
+  350/500  (584.2s elapsed, 1.67s/img)
+  400/500  (708.8s elapsed, 1.77s/img)
+  450/500  (766.2s elapsed, 1.70s/img)
+  500/500  (838.6s elapsed, 1.68s/img)
+[defect/test] GT boxes=3140 over 500 images (500 label files present)
+  raw records written: D:\SmartPCB-XAI\metrics\raw\defect_val_raw.json (1039 detections, 930 GT boxes)
+  raw records written: D:\SmartPCB-XAI\metrics\raw\defect_test_raw.json (3656 detections, 3140 GT boxes)
+
+-- threshold sweep on VALIDATION only (0.1..0.7 step 0.05) --
+  val-calibrated threshold (best micro-F1) = 0.7
+  val micro-F1 at 0.7 = 0.988147
+
+-- TEST metrics (never used for calibration) --
+  @conf 0.25 : mAP50=0.91473 mAP50-95=0.723308 microF1=0.946753
+  @conf 0.7 : mAP50=0.927359 mAP50-95=0.73834 microF1=0.95963
+
+Written: D:\SmartPCB-XAI\metrics\defect_metrics.json
+Written: D:\SmartPCB-XAI\metrics\threshold_sweep_defect.csv
+Written: D:\SmartPCB-XAI\metrics\per_class_defect.csv
+

@@ -1,0 +1,127 @@
+{
+  "model": "component",
+  "split": "val",
+  "imgsz": 1024,
+  "conf": 0.25,
+  "iou_match": 0.5,
+  "images": 116,
+  "gt_boxes": 1549,
+  "detections": 649,
+  "matched": 481,
+  "mean_matched_iou": 0.7506,
+  "model_raw_classes": [
+    "relay",
+    "buzzer",
+    "ic",
+    "switch",
+    "battery",
+    "transistor",
+    "capacitor",
+    "resistor",
+    "led",
+    "diode"
+  ],
+  "dataset_classes": [
+    "ICs",
+    "capacitors",
+    "diodes",
+    "inductors",
+    "resistors",
+    "transistors"
+  ],
+  "contingency": {
+    "model_idx_2_gt_idx_0": 40,
+    "model_idx_2_gt_idx_2": 1,
+    "model_idx_2_gt_idx_3": 6,
+    "model_idx_2_gt_idx_4": 2,
+    "model_idx_2_gt_idx_5": 4,
+    "model_idx_3_gt_idx_0": 1,
+    "model_idx_3_gt_idx_2": 2,
+    "model_idx_4_gt_idx_2": 1,
+    "model_idx_5_gt_idx_0": 4,
+    "model_idx_5_gt_idx_3": 3,
+    "model_idx_5_gt_idx_5": 17,
+    "model_idx_6_gt_idx_1": 199,
+    "model_idx_6_gt_idx_2": 12,
+    "model_idx_6_gt_idx_3": 2,
+    "model_idx_6_gt_idx_4": 5,
+    "model_idx_7_gt_idx_1": 52,
+    "model_idx_7_gt_idx_2": 3,
+    "model_idx_7_gt_idx_3": 1,
+    "model_idx_7_gt_idx_4": 112,
+    "model_idx_8_gt_idx_1": 1,
+    "model_idx_8_gt_idx_2": 6,
+    "model_idx_9_gt_idx_2": 5,
+    "model_idx_9_gt_idx_4": 2
+  },
+  "diagonal_pairs": 18,
+  "per_model_index_best_gt": {
+    "2": {
+      "gt_idx": 0,
+      "gt_name": "ICs",
+      "n": 40,
+      "model_total": 53
+    },
+    "3": {
+      "gt_idx": 2,
+      "gt_name": "diodes",
+      "n": 2,
+      "model_total": 3
+    },
+    "4": {
+      "gt_idx": 2,
+      "gt_name": "diodes",
+      "n": 1,
+      "model_total": 1
+    },
+    "5": {
+      "gt_idx": 5,
+      "gt_name": "transistors",
+      "n": 17,
+      "model_total": 24
+    },
+    "6": {
+      "gt_idx": 1,
+      "gt_name": "capacitors",
+      "n": 199,
+      "model_total": 218
+    },
+    "7": {
+      "gt_idx": 4,
+      "gt_name": "resistors",
+      "n": 112,
+      "model_total": 168
+    },
+    "8": {
+      "gt_idx": 2,
+      "gt_name": "diodes",
+      "n": 6,
+      "model_total": 7
+    },
+    "9": {
+      "gt_idx": 2,
+      "gt_name": "diodes",
+      "n": 5,
+      "model_total": 7
+    }
+  },
+  "unmatched_gt": {
+    "ICs": 70,
+    "capacitors": 421,
+    "diodes": 78,
+    "inductors": 36,
+    "resistors": 428,
+    "transistors": 35
+  },
+  "unmatched_detections": {
+    "relay": 6,
+    "ic": 15,
+    "switch": 1,
+    "battery": 2,
+    "transistor": 8,
+    "capacitor": 59,
+    "resistor": 59,
+    "led": 10,
+    "diode": 8
+  }
+}

@@ -1,0 +1,20 @@
+INFO:     Started server process [23160]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Initializing SmartPCB Inspection Engine...
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt
+Inspection Engine Ready on device=cpu.
+[ModelSafety] component=PASS defect=PASS
+INFO:     127.0.0.1:59557 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59560 - "POST /api/v1/inspect HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57874 - "POST /api/v1/inspect HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63578 - "POST /api/v1/report/pdf HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:63579 - "POST /api/v1/report/excel HTTP/1.1" 422 Unprocessable Content
+PDF Inspection Report successfully created: D:\SmartPCB-XAI\reports\generated\INSP-1790170469_report.pdf
+INFO:     127.0.0.1:63583 - "POST /api/v1/report/pdf HTTP/1.1" 200 OK
+Excel Inspection Report successfully created: D:\SmartPCB-XAI\reports\generated\INSP-1790170469_audit.xlsx
+INFO:     127.0.0.1:63584 - "POST /api/v1/report/excel HTTP/1.1" 200 OK

@@ -1,0 +1,2 @@
+PASTE component_training_metrics.json CONTENTS HERE
+I need this to evaluate the component model and report its performance.

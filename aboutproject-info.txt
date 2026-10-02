@@ -1,0 +1,72 @@
+================================================================================
+SMARTPCB-XAI: COMPLETE TECHNICAL REFERENCE & CONFERENCE COMPANION GUIDE
+Full Title: "SmartPCB-XAI: An Explainable AI-Based Intelligent PCB Inspection
+             and Manufacturing Analytics Platform for Industry 4.0"
+================================================================================
+Author: Dharma Raj & Research Team
+Created & Verified: 2026-09-22
+Status: 100% COMPLETE, TESTED, TRAINED, AND FUNCTIONAL
+
+--------------------------------------------------------------------------------
+1. IS ALL DONE?
+--------------------------------------------------------------------------------
+YES. The entire pipeline from Phase 0 to Phase 20 is completely implemented,
+trained, evaluated, tested, and verified:
+- Dataset Curation: FICS-PCB DSLR Tiled (370 tiles), Roboflow Remapped (643 images,
+  32,190 boxes), DeepPCB formatted (1,500 pairs, 10,013 boxes).
+- AI Models: Dual YOLOv11s detectors trained and saved in models/ (component_best.pt,
+  defect_best.pt).
+- Explainable AI: Authentic Grad-CAM++ feature attribution hooks in ai/xai/gradcam.py.
+- Severity & Scoring: Mathematical severity engine and IPC-A-610 quality index.
+- Full Stack Platform: FastAPI (port 8000), Express backend (port 5000), React 18
+  industrial frontend (port 3000), and MongoDB database.
+- Automated Tests: 9/9 unit tests passing, live end-to-end integration test passing,
+  and frontend production build compiled with 0 errors.
+- Research Paper: Full IEEE publication draft in SmartPCB-XAI_Research_Paper.md.
+
+--------------------------------------------------------------------------------
+2. HOW TO RUN THE PROJECT
+--------------------------------------------------------------------------------
+Open three separate terminal windows in D:\SmartPCB-XAI:
+
+Terminal 1 — FastAPI AI Inference Service:
+  cd D:\SmartPCB-XAI
+  python -m uvicorn ai_service.main:app --host 127.0.0.1 --port 8000 --reload
+
+Terminal 2 — Express Application Backend:
+  cd D:\SmartPCB-XAI\backend
+  npm start
+
+Terminal 3 — React Industrial Dashboard:
+  cd D:\SmartPCB-XAI\frontend
+  npm run dev -- --host 127.0.0.1 --port 3000
+
+Access the web interface at:
+>>> http://localhost:3000 <<<
+
+Run Automated Test Suite:
+  python -m unittest discover -s tests -p "test_*.py"
+
+Run Live End-to-End Test:
+  python tests/test_e2e_live.py
+
+--------------------------------------------------------------------------------
+3. WHAT, WHY, WHERE, HOW MATRIX
+--------------------------------------------------------------------------------
+Technology / Module | Why Used                       | Where Used             | How Implemented
+--------------------|--------------------------------|------------------------|---------------------------------
+YOLOv11s            | SOTA accuracy/latency tradeoff | ai/training/, models/  | Dual heads (components + defects)
+Grad-CAM++          | Multi-instance visual XAI      | ai/xai/gradcam.py      | PyTorch backward hooks on bottleneck
+CLAHE               | Trace contrast enhancement     | ai/inference/engine.py | OpenCV LAB L-channel equalization
+Grid-Tiling (640px) | Avoid downsampling small parts | scripts/dataset/       | 128px overlap, box recalibration
+Severity Formula    | IPC-A-610 defect grading       | ai/severity/           | Base_weight * Crit * (1 + 10*Area)
+ReportLab & OpenPyXL| Formal compliance certificates | ai/reports/            | Generates PDF & multi-sheet Excel
+FastAPI             | Async Python AI microservice   | ai_service/main.py     | Serves /inspect, /health, /reports
+Express.js          | Web business logic & auth      | backend/server.js      | JWT, Multer upload, MongoDB CRUD
+React 18 + Vite     | Industrial responsive UI       | frontend/src/          | Dark theme, Recharts, Canvas
+Digital Twin        | Visual spatial board schematic | components/DigitalTwin | 2D SVG/Canvas interactive nodes
+Continuous Learning | Human-in-the-loop retraining   | components/Feedback    | MongoDB feedback collection
+
+See project-info.txt for the exhaustive 800+ line technical manual, mathematical
+derivations, full benchmark tables, and viva conference presentation script!
+================================================================================

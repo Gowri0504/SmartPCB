@@ -1,0 +1,36 @@
+========================================================================
+MODEL EVALUATION — component
+  checkpoint : D:\SmartPCB-XAI\models\component_best.pt
+  data yaml  : D:\SmartPCB-XAI\datasets\components_unified\data.yaml
+  alignment  : name-based
+  imgsz      : 1024   device: cpu   torch: 2.13.0+cpu   cuda: False
+========================================================================
+  model classes (10): ['relay', 'buzzer', 'ic', 'switch', 'battery', 'transistor', 'capacitor', 'resistor', 'led', 'diode']
+  GT classes    (6): ['ICs', 'capacitors', 'diodes', 'inductors', 'resistors', 'transistors']
+[component/val] 116 images from D:\SmartPCB-XAI\datasets\components_unified\val/images
+  50/116  (21.6s elapsed, 0.43s/img)
+  100/116  (47.6s elapsed, 0.48s/img)
+  116/116  (56.3s elapsed, 0.49s/img)
+[component/val] GT boxes=1549 over 116 images (116 label files present)
+[component/test] 90 images from D:\SmartPCB-XAI\datasets\components_unified\test/images
+  50/90  (25.7s elapsed, 0.51s/img)
+  90/90  (51.1s elapsed, 0.57s/img)
+[component/test] GT boxes=1242 over 90 images (90 label files present)
+  raw records written: D:\SmartPCB-XAI\metrics\raw\component_val_raw.json (1834 detections, 1549 GT boxes)
+  raw records written: D:\SmartPCB-XAI\metrics\raw\component_test_raw.json (1560 detections, 1242 GT boxes)
+  NOTE: GT names outside the canonical space are still scored: ['inductors']
+  WARNING [test]: 4 GT box(es) carry a class index absent from data.yaml and CANNOT be scored: {'gtunk_7': 4}
+
+-- threshold sweep on VALIDATION only (0.1..0.7 step 0.05) --
+  val-calibrated threshold (best micro-F1) = 0.15
+  val micro-F1 at 0.15 = 0.368356
+
+-- TEST metrics (never used for calibration) --
+  @conf 0.25 : mAP50=0.093346 mAP50-95=0.043714 microF1=0.231962
+  @conf 0.15 : mAP50=0.09528 mAP50-95=0.04249 microF1=0.244403
+
+Written: D:\SmartPCB-XAI\metrics\component_metrics.json
+Written: D:\SmartPCB-XAI\metrics\threshold_sweep_component.csv
+Written: D:\SmartPCB-XAI\metrics\per_class_component.csv
+
+exit=0

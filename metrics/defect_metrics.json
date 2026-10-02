@@ -1,0 +1,1730 @@
+{
+  "generated_at": "2026-09-23T19:01:29.512722",
+  "model_key": "defect",
+  "checkpoint_path": "models/defect_best.pt",
+  "checkpoint_md5": "bca0be3bff217427e779782866ed16d2",
+  "checkpoint_provenance": {
+    "readable": true,
+    "trained_in_this_repository": false,
+    "evidence": "checkpoint train_args point at a Kaggle working directory; no in-repo training run produced this file (see FINAL_IMPLEMENTATION_AUDIT.md)",
+    "train_args_data": "/kaggle/working/data_rtdetr_fixed.yaml",
+    "train_args_model": "yolo11m.pt",
+    "train_args_epochs": 50,
+    "train_args_imgsz": 640,
+    "train_args_device": "0,1",
+    "train_args_name": "PCB_YOLO11_M_FINAL",
+    "ckpt_date": "2026-03-29T10:03:43.470171",
+    "ckpt_ultralytics_version": "8.4.31",
+    "self_reported_train_metrics": {
+      "metrics/precision(B)": 0.94818,
+      "metrics/recall(B)": 0.85996,
+      "metrics/mAP50(B)": 0.9079,
+      "metrics/mAP50-95(B)": 0.57582,
+      "val/box_loss": 1.37587,
+      "val/cls_loss": 0.66571,
+      "val/dfl_loss": 1.07545,
+      "fitness": 0.57582
+    },
+    "self_reported_metrics_note": "reported by the trainer on ITS OWN split; independently UNVERIFIED by this repository"
+  },
+  "dataset_yaml": "datasets/defects/data.yaml",
+  "splits_used": {
+    "threshold_calibration": "val (only)",
+    "reported_metrics": "test (held out from calibration)",
+    "val_images": 150,
+    "test_images": 500
+  },
+  "runtime": {
+    "device": "cpu",
+    "imgsz": 640,
+    "iou_nms": 0.45,
+    "low_conf_floor_for_collection": 0.05
+  },
+  "class_spaces": {
+    "model_raw_classes": null,
+    "dataset_gt_classes": [
+      "open",
+      "short",
+      "mousebite",
+      "spur",
+      "copper",
+      "pin-hole"
+    ],
+    "canonical_evaluation_space": [
+      "copper",
+      "mousebite",
+      "open",
+      "pin-hole",
+      "short",
+      "spur"
+    ],
+    "alignment": {
+      "mode": "positional",
+      "decoding": "model side POSITIONAL by class index (checkpoint name strings are unreliable; verified on val 921/923 diagonal pairs, mean IoU 0.899); GT side identity (dataset names are already canonical)",
+      "model_index_to_canonical": {
+        "0": "open",
+        "1": "short",
+        "2": "mousebite",
+        "3": "spur",
+        "4": "copper",
+        "5": "pin-hole"
+      }
+    },
+    "gt_classes_that_no_detection_can_ever_match": [],
+    "unscorable_gt_boxes_out_of_range_class_index": {
+      "val": {},
+      "test": {}
+    }
+  },
+  "threshold_sweep_on_val": [
+    {
+      "confidence_threshold": 0.1,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.962121,
+          "recall": 1.0,
+          "f1": 0.980695,
+          "gt_count": 127,
+          "pred_count": 132,
+          "ap50": 0.966823,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 161,
+          "fp": 8,
+          "fn": 3,
+          "precision": 0.952663,
+          "recall": 0.981707,
+          "f1": 0.966967,
+          "gt_count": 164,
+          "pred_count": 169,
+          "ap50": 0.951692,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 192,
+          "fp": 12,
+          "fn": 1,
+          "precision": 0.941176,
+          "recall": 0.994819,
+          "f1": 0.967254,
+          "gt_count": 193,
+          "pred_count": 204,
+          "ap50": 0.955238,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 41,
+          "fn": 0,
+          "precision": 0.791878,
+          "recall": 1.0,
+          "f1": 0.883853,
+          "gt_count": 156,
+          "pred_count": 197,
+          "ap50": 0.870765,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 146,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.979866,
+          "recall": 1.0,
+          "f1": 0.989831,
+          "gt_count": 146,
+          "pred_count": 149,
+          "ap50": 0.981281,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 142,
+          "fp": 11,
+          "fn": 2,
+          "precision": 0.928105,
+          "recall": 0.986111,
+          "f1": 0.956229,
+          "gt_count": 144,
+          "pred_count": 153,
+          "ap50": 0.930705,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.920319,
+        "micro_recall": 0.993548,
+        "micro_f1": 0.955533,
+        "macro_precision": 0.925968,
+        "macro_recall": 0.993773,
+        "macro_f1": 0.957471,
+        "mAP50": 0.942751
+      }
+    },
+    {
+      "confidence_threshold": 0.15,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.992188,
+          "recall": 1.0,
+          "f1": 0.996078,
+          "gt_count": 127,
+          "pred_count": 128,
+          "ap50": 0.992249,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 161,
+          "fp": 7,
+          "fn": 3,
+          "precision": 0.958333,
+          "recall": 0.981707,
+          "f1": 0.96988,
+          "gt_count": 164,
+          "pred_count": 168,
+          "ap50": 0.952015,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 192,
+          "fp": 10,
+          "fn": 1,
+          "precision": 0.950495,
+          "recall": 0.994819,
+          "f1": 0.972152,
+          "gt_count": 193,
+          "pred_count": 202,
+          "ap50": 0.961651,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 36,
+          "fn": 0,
+          "precision": 0.8125,
+          "recall": 1.0,
+          "f1": 0.896552,
+          "gt_count": 156,
+          "pred_count": 192,
+          "ap50": 0.887408,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 146,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.986486,
+          "recall": 1.0,
+          "f1": 0.993197,
+          "gt_count": 146,
+          "pred_count": 148,
+          "ap50": 0.991782,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 142,
+          "fp": 10,
+          "fn": 2,
+          "precision": 0.934211,
+          "recall": 0.986111,
+          "f1": 0.959459,
+          "gt_count": 144,
+          "pred_count": 152,
+          "ap50": 0.938654,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.933333,
+        "micro_recall": 0.993548,
+        "micro_f1": 0.9625,
+        "macro_precision": 0.939036,
+        "macro_recall": 0.993773,
+        "macro_f1": 0.964553,
+        "mAP50": 0.95396
+      }
+    },
+    {
+      "confidence_threshold": 0.2,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 161,
+          "fp": 5,
+          "fn": 3,
+          "precision": 0.96988,
+          "recall": 0.981707,
+          "f1": 0.975758,
+          "gt_count": 164,
+          "pred_count": 166,
+          "ap50": 0.957902,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 192,
+          "fp": 9,
+          "fn": 1,
+          "precision": 0.955224,
+          "recall": 0.994819,
+          "f1": 0.974619,
+          "gt_count": 193,
+          "pred_count": 201,
+          "ap50": 0.96653,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 26,
+          "fn": 0,
+          "precision": 0.857143,
+          "recall": 1.0,
+          "f1": 0.923077,
+          "gt_count": 156,
+          "pred_count": 182,
+          "ap50": 0.902931,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 146,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.986486,
+          "recall": 1.0,
+          "f1": 0.993197,
+          "gt_count": 146,
+          "pred_count": 148,
+          "ap50": 0.991782,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 142,
+          "fp": 7,
+          "fn": 2,
+          "precision": 0.95302,
+          "recall": 0.986111,
+          "f1": 0.969283,
+          "gt_count": 144,
+          "pred_count": 149,
+          "ap50": 0.945274,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.94964,
+        "micro_recall": 0.993548,
+        "micro_f1": 0.971098,
+        "macro_precision": 0.953625,
+        "macro_recall": 0.993773,
+        "macro_f1": 0.972656,
+        "mAP50": 0.960736
+      }
+    },
+    {
+      "confidence_threshold": 0.25,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 161,
+          "fp": 5,
+          "fn": 3,
+          "precision": 0.96988,
+          "recall": 0.981707,
+          "f1": 0.975758,
+          "gt_count": 164,
+          "pred_count": 166,
+          "ap50": 0.957902,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 192,
+          "fp": 8,
+          "fn": 1,
+          "precision": 0.96,
+          "recall": 0.994819,
+          "f1": 0.977099,
+          "gt_count": 193,
+          "pred_count": 200,
+          "ap50": 0.969103,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 22,
+          "fn": 0,
+          "precision": 0.876404,
+          "recall": 1.0,
+          "f1": 0.934132,
+          "gt_count": 156,
+          "pred_count": 178,
+          "ap50": 0.906822,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 146,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.986486,
+          "recall": 1.0,
+          "f1": 0.993197,
+          "gt_count": 146,
+          "pred_count": 148,
+          "ap50": 0.991782,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 7,
+          "fn": 3,
+          "precision": 0.952703,
+          "recall": 0.979167,
+          "f1": 0.965753,
+          "gt_count": 144,
+          "pred_count": 148,
+          "ap50": 0.938262,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.954498,
+        "micro_recall": 0.992473,
+        "micro_f1": 0.973115,
+        "macro_precision": 0.957579,
+        "macro_recall": 0.992615,
+        "macro_f1": 0.974323,
+        "mAP50": 0.960645
+      }
+    },
+    {
+      "confidence_threshold": 0.3,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 160,
+          "fp": 3,
+          "fn": 4,
+          "precision": 0.981595,
+          "recall": 0.97561,
+          "f1": 0.978593,
+          "gt_count": 164,
+          "pred_count": 163,
+          "ap50": 0.963803,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 192,
+          "fp": 7,
+          "fn": 1,
+          "precision": 0.964824,
+          "recall": 0.994819,
+          "f1": 0.979592,
+          "gt_count": 193,
+          "pred_count": 199,
+          "ap50": 0.970918,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 17,
+          "fn": 0,
+          "precision": 0.901734,
+          "recall": 1.0,
+          "f1": 0.948328,
+          "gt_count": 156,
+          "pred_count": 173,
+          "ap50": 0.914196,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 146,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.993197,
+          "recall": 1.0,
+          "f1": 0.996587,
+          "gt_count": 146,
+          "pred_count": 147,
+          "ap50": 0.99548,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 3,
+          "fn": 3,
+          "precision": 0.979167,
+          "recall": 0.979167,
+          "f1": 0.979167,
+          "gt_count": 144,
+          "pred_count": 144,
+          "ap50": 0.966516,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.967471,
+        "micro_recall": 0.991398,
+        "micro_f1": 0.979288,
+        "macro_precision": 0.970086,
+        "macro_recall": 0.991599,
+        "macro_f1": 0.980378,
+        "mAP50": 0.968485
+      }
+    },
+    {
+      "confidence_threshold": 0.35,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 160,
+          "fp": 3,
+          "fn": 4,
+          "precision": 0.981595,
+          "recall": 0.97561,
+          "f1": 0.978593,
+          "gt_count": 164,
+          "pred_count": 163,
+          "ap50": 0.963803,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 191,
+          "fp": 7,
+          "fn": 2,
+          "precision": 0.964646,
+          "recall": 0.989637,
+          "f1": 0.976982,
+          "gt_count": 193,
+          "pred_count": 198,
+          "ap50": 0.96557,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 15,
+          "fn": 0,
+          "precision": 0.912281,
+          "recall": 1.0,
+          "f1": 0.954128,
+          "gt_count": 156,
+          "pred_count": 171,
+          "ap50": 0.925385,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.986014,
+          "recall": 0.979167,
+          "f1": 0.982578,
+          "gt_count": 144,
+          "pred_count": 143,
+          "ap50": 0.968695,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.970464,
+        "micro_recall": 0.989247,
+        "micro_f1": 0.979766,
+        "macro_precision": 0.972948,
+        "macro_recall": 0.989594,
+        "macro_f1": 0.980905,
+        "mAP50": 0.968683
+      }
+    },
+    {
+      "confidence_threshold": 0.4,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 160,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.987654,
+          "recall": 0.97561,
+          "f1": 0.981595,
+          "gt_count": 164,
+          "pred_count": 162,
+          "ap50": 0.971404,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 191,
+          "fp": 6,
+          "fn": 2,
+          "precision": 0.969543,
+          "recall": 0.989637,
+          "f1": 0.979487,
+          "gt_count": 193,
+          "pred_count": 197,
+          "ap50": 0.969382,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 12,
+          "fn": 0,
+          "precision": 0.928571,
+          "recall": 1.0,
+          "f1": 0.962963,
+          "gt_count": 156,
+          "pred_count": 168,
+          "ap50": 0.943089,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.986014,
+          "recall": 0.979167,
+          "f1": 0.982578,
+          "gt_count": 144,
+          "pred_count": 143,
+          "ap50": 0.968695,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.97561,
+        "micro_recall": 0.989247,
+        "micro_f1": 0.982381,
+        "macro_precision": 0.977489,
+        "macro_recall": 0.989594,
+        "macro_f1": 0.983296,
+        "mAP50": 0.973536
+      }
+    },
+    {
+      "confidence_threshold": 0.45,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 160,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.987654,
+          "recall": 0.97561,
+          "f1": 0.981595,
+          "gt_count": 164,
+          "pred_count": 162,
+          "ap50": 0.971404,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 191,
+          "fp": 4,
+          "fn": 2,
+          "precision": 0.979487,
+          "recall": 0.989637,
+          "f1": 0.984536,
+          "gt_count": 193,
+          "pred_count": 195,
+          "ap50": 0.974651,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 12,
+          "fn": 0,
+          "precision": 0.928571,
+          "recall": 1.0,
+          "f1": 0.962963,
+          "gt_count": 156,
+          "pred_count": 168,
+          "ap50": 0.943089,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.979766,
+        "micro_recall": 0.989247,
+        "micro_f1": 0.984484,
+        "macro_precision": 0.981477,
+        "macro_recall": 0.989594,
+        "macro_f1": 0.985286,
+        "mAP50": 0.97616
+      }
+    },
+    {
+      "confidence_threshold": 0.5,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 160,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.987654,
+          "recall": 0.97561,
+          "f1": 0.981595,
+          "gt_count": 164,
+          "pred_count": 162,
+          "ap50": 0.971404,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 190,
+          "fp": 4,
+          "fn": 3,
+          "precision": 0.979381,
+          "recall": 0.984456,
+          "f1": 0.981912,
+          "gt_count": 193,
+          "pred_count": 194,
+          "ap50": 0.969393,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 11,
+          "fn": 0,
+          "precision": 0.934132,
+          "recall": 1.0,
+          "f1": 0.965944,
+          "gt_count": 156,
+          "pred_count": 167,
+          "ap50": 0.943334,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.98079,
+        "micro_recall": 0.988172,
+        "micro_f1": 0.984467,
+        "macro_precision": 0.982386,
+        "macro_recall": 0.988731,
+        "macro_f1": 0.985346,
+        "mAP50": 0.975324
+      }
+    },
+    {
+      "confidence_threshold": 0.55,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 159,
+          "fp": 2,
+          "fn": 5,
+          "precision": 0.987578,
+          "recall": 0.969512,
+          "f1": 0.978462,
+          "gt_count": 164,
+          "pred_count": 161,
+          "ap50": 0.965278,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 190,
+          "fp": 3,
+          "fn": 3,
+          "precision": 0.984456,
+          "recall": 0.984456,
+          "f1": 0.984456,
+          "gt_count": 193,
+          "pred_count": 193,
+          "ap50": 0.9731,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 11,
+          "fn": 0,
+          "precision": 0.934132,
+          "recall": 1.0,
+          "f1": 0.965944,
+          "gt_count": 156,
+          "pred_count": 167,
+          "ap50": 0.943334,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.981818,
+        "micro_recall": 0.987097,
+        "micro_f1": 0.98445,
+        "macro_precision": 0.98322,
+        "macro_recall": 0.987714,
+        "macro_f1": 0.985248,
+        "mAP50": 0.974921
+      }
+    },
+    {
+      "confidence_threshold": 0.6,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 159,
+          "fp": 2,
+          "fn": 5,
+          "precision": 0.987578,
+          "recall": 0.969512,
+          "f1": 0.978462,
+          "gt_count": 164,
+          "pred_count": 161,
+          "ap50": 0.965278,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 190,
+          "fp": 2,
+          "fn": 3,
+          "precision": 0.989583,
+          "recall": 0.984456,
+          "f1": 0.987013,
+          "gt_count": 193,
+          "pred_count": 192,
+          "ap50": 0.976846,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 9,
+          "fn": 0,
+          "precision": 0.945455,
+          "recall": 1.0,
+          "f1": 0.971963,
+          "gt_count": 156,
+          "pred_count": 165,
+          "ap50": 0.951167,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.984979,
+        "micro_recall": 0.987097,
+        "micro_f1": 0.986037,
+        "macro_precision": 0.985961,
+        "macro_recall": 0.987714,
+        "macro_f1": 0.986677,
+        "mAP50": 0.976851
+      }
+    },
+    {
+      "confidence_threshold": 0.65,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 159,
+          "fp": 2,
+          "fn": 5,
+          "precision": 0.987578,
+          "recall": 0.969512,
+          "f1": 0.978462,
+          "gt_count": 164,
+          "pred_count": 161,
+          "ap50": 0.965278,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 189,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.989529,
+          "recall": 0.979275,
+          "f1": 0.984375,
+          "gt_count": 193,
+          "pred_count": 191,
+          "ap50": 0.971679,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 8,
+          "fn": 0,
+          "precision": 0.95122,
+          "recall": 1.0,
+          "f1": 0.975,
+          "gt_count": 156,
+          "pred_count": 164,
+          "ap50": 0.95763,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.986022,
+        "micro_recall": 0.986022,
+        "micro_f1": 0.986022,
+        "macro_precision": 0.986913,
+        "macro_recall": 0.986851,
+        "macro_f1": 0.986744,
+        "mAP50": 0.977067
+      }
+    },
+    {
+      "confidence_threshold": 0.7,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 127,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "gt_count": 127,
+          "pred_count": 127,
+          "ap50": 1.0,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 159,
+          "fp": 2,
+          "fn": 5,
+          "precision": 0.987578,
+          "recall": 0.969512,
+          "f1": 0.978462,
+          "gt_count": 164,
+          "pred_count": 161,
+          "ap50": 0.965278,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 189,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.989529,
+          "recall": 0.979275,
+          "f1": 0.984375,
+          "gt_count": 193,
+          "pred_count": 191,
+          "ap50": 0.971679,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 156,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.975,
+          "recall": 1.0,
+          "f1": 0.987342,
+          "gt_count": 156,
+          "pred_count": 160,
+          "ap50": 0.978482,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 145,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.993151,
+          "recall": 0.993151,
+          "f1": 0.993151,
+          "gt_count": 146,
+          "pred_count": 146,
+          "ap50": 0.988647,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 141,
+          "fp": 0,
+          "fn": 3,
+          "precision": 1.0,
+          "recall": 0.979167,
+          "f1": 0.989474,
+          "gt_count": 144,
+          "pred_count": 141,
+          "ap50": 0.979167,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.990281,
+        "micro_recall": 0.986022,
+        "micro_f1": 0.988147,
+        "macro_precision": 0.990876,
+        "macro_recall": 0.986851,
+        "macro_f1": 0.988801,
+        "mAP50": 0.980542
+      }
+    }
+  ],
+  "val_calibrated_threshold": 0.7,
+  "test_at_default_0.25": {
+    "metrics": {
+      "confidence_threshold": 0.25,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 456,
+          "fp": 40,
+          "fn": 8,
+          "precision": 0.919355,
+          "recall": 0.982759,
+          "f1": 0.95,
+          "gt_count": 464,
+          "pred_count": 496,
+          "ap50": 0.939022,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 579,
+          "fp": 22,
+          "fn": 7,
+          "precision": 0.963394,
+          "recall": 0.988055,
+          "f1": 0.975569,
+          "gt_count": 586,
+          "pred_count": 601,
+          "ap50": 0.959813,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 646,
+          "fp": 18,
+          "fn": 13,
+          "precision": 0.972892,
+          "recall": 0.980273,
+          "f1": 0.976568,
+          "gt_count": 659,
+          "pred_count": 664,
+          "ap50": 0.967579,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 469,
+          "fp": 119,
+          "fn": 1,
+          "precision": 0.797619,
+          "recall": 0.997872,
+          "f1": 0.886578,
+          "gt_count": 470,
+          "pred_count": 588,
+          "ap50": 0.801279,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 455,
+          "fp": 69,
+          "fn": 23,
+          "precision": 0.868321,
+          "recall": 0.951883,
+          "f1": 0.908184,
+          "gt_count": 478,
+          "pred_count": 524,
+          "ap50": 0.867292,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 471,
+          "fp": 14,
+          "fn": 12,
+          "precision": 0.971134,
+          "recall": 0.975155,
+          "f1": 0.97314,
+          "gt_count": 483,
+          "pred_count": 485,
+          "ap50": 0.953396,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.916021,
+        "micro_recall": 0.979618,
+        "micro_f1": 0.946753,
+        "macro_precision": 0.915453,
+        "macro_recall": 0.979333,
+        "macro_f1": 0.945006,
+        "mAP50": 0.91473
+      }
+    },
+    "map_50_95": {
+      "ious": [
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95
+      ],
+      "ap_per_iou": [
+        0.91473,
+        0.913042,
+        0.910695,
+        0.905889,
+        0.896606,
+        0.870331,
+        0.803193,
+        0.622943,
+        0.342694,
+        0.05296
+      ],
+      "mAP50_95": 0.723308
+    }
+  },
+  "test_at_val_calibrated_threshold": {
+    "metrics": {
+      "confidence_threshold": 0.7,
+      "iou_match_threshold": 0.5,
+      "per_class": {
+        "copper": {
+          "tp": 452,
+          "fp": 10,
+          "fn": 12,
+          "precision": 0.978355,
+          "recall": 0.974138,
+          "f1": 0.976242,
+          "gt_count": 464,
+          "pred_count": 462,
+          "ap50": 0.961942,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "mousebite": {
+          "tp": 569,
+          "fp": 4,
+          "fn": 17,
+          "precision": 0.993019,
+          "recall": 0.97099,
+          "f1": 0.981881,
+          "gt_count": 586,
+          "pred_count": 573,
+          "ap50": 0.968166,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "open": {
+          "tp": 629,
+          "fp": 4,
+          "fn": 30,
+          "precision": 0.993681,
+          "recall": 0.954476,
+          "f1": 0.973684,
+          "gt_count": 659,
+          "pred_count": 633,
+          "ap50": 0.95319,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "pin-hole": {
+          "tp": 467,
+          "fp": 80,
+          "fn": 3,
+          "precision": 0.853748,
+          "recall": 0.993617,
+          "f1": 0.918387,
+          "gt_count": 470,
+          "pred_count": 547,
+          "ap50": 0.853188,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "short": {
+          "tp": 429,
+          "fp": 18,
+          "fn": 49,
+          "precision": 0.959732,
+          "recall": 0.89749,
+          "f1": 0.927568,
+          "gt_count": 478,
+          "pred_count": 447,
+          "ap50": 0.878656,
+          "evaluated": true,
+          "present_in_gt": true
+        },
+        "spur": {
+          "tp": 461,
+          "fp": 4,
+          "fn": 22,
+          "precision": 0.991398,
+          "recall": 0.954451,
+          "f1": 0.972574,
+          "gt_count": 483,
+          "pred_count": 465,
+          "ap50": 0.949013,
+          "evaluated": true,
+          "present_in_gt": true
+        }
+      },
+      "predicted_classes_absent_from_gt": [],
+      "coverage": {
+        "dataset_classes_with_gt_in_this_split": [
+          "copper",
+          "mousebite",
+          "open",
+          "pin-hole",
+          "short",
+          "spur"
+        ],
+        "dataset_classes_with_zero_gt_in_this_split": []
+      },
+      "macro": {
+        "classes_with_gt": 6,
+        "micro_precision": 0.961625,
+        "micro_recall": 0.957643,
+        "micro_f1": 0.95963,
+        "macro_precision": 0.961655,
+        "macro_recall": 0.957527,
+        "macro_f1": 0.958389,
+        "mAP50": 0.927359
+      }
+    },
+    "map_50_95": {
+      "ious": [
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95
+      ],
+      "ap_per_iou": [
+        0.927359,
+        0.926326,
+        0.924171,
+        0.920211,
+        0.912131,
+        0.888116,
+        0.824624,
+        0.646386,
+        0.35782,
+        0.056255
+      ],
+      "mAP50_95": 0.73834
+    }
+  }
+}

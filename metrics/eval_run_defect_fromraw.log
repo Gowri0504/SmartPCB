@@ -1,0 +1,16 @@
+[defect] --from-raw: loading persisted detections/GT, skipping inference
+[defect/val]  150 images (raw)
+[defect/test] 500 images (raw)
+
+-- threshold sweep on VALIDATION only (0.1..0.7 step 0.05) --
+  val-calibrated threshold (best micro-F1) = 0.7
+  val micro-F1 at 0.7 = 0.988147
+
+-- TEST metrics (never used for calibration) --
+  @conf 0.25 : mAP50=0.91473 mAP50-95=0.723308 microF1=0.946753
+  @conf 0.7 : mAP50=0.927359 mAP50-95=0.73834 microF1=0.95963
+
+Written: D:\SmartPCB-XAI\metrics\defect_metrics.json
+Written: D:\SmartPCB-XAI\metrics\threshold_sweep_defect.csv
+Written: D:\SmartPCB-XAI\metrics\per_class_defect.csv
+

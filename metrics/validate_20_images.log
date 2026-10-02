@@ -1,0 +1,28 @@
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt
+[validate] 00041200.jpg: comps=0 defs=5 total=10867.6797ms
+[validate] 00041201.jpg: comps=0 defs=5 total=3231.1512ms
+[validate] 00041202.jpg: comps=0 defs=4 total=3500.984ms
+[validate] 00041203.jpg: comps=0 defs=5 total=3217.4822ms
+[validate] 00041204.jpg: comps=0 defs=6 total=3519.3057ms
+[validate] 00041205.jpg: comps=0 defs=5 total=3764.704ms
+[validate] 00041206.jpg: comps=0 defs=5 total=3666.3227ms
+[validate] 00041207.jpg: comps=0 defs=6 total=3567.9472ms
+[validate] 00041208.jpg: comps=0 defs=4 total=3235.3719ms
+[validate] 00041209.jpg: comps=0 defs=5 total=4416.2326ms
+[validate] 00041210.jpg: comps=0 defs=5 total=5297.2238ms
+[validate] 00041211.jpg: comps=0 defs=4 total=3343.2448ms
+[validate] 00041212.jpg: comps=0 defs=5 total=3844.3002ms
+[validate] 00041213.jpg: comps=0 defs=5 total=4218.6186ms
+[validate] 00041214.jpg: comps=0 defs=6 total=2566.2884ms
+[validate] 00041215.jpg: comps=0 defs=6 total=3556.2311ms
+[validate] 00041216.jpg: comps=0 defs=6 total=3797.4752ms
+[validate] 00041217.jpg: comps=0 defs=6 total=4052.0076ms
+[validate] 00041218.jpg: comps=0 defs=6 total=3697.8126ms
+[validate] 00041219.jpg: comps=0 defs=5 total=4105.5072ms
+
+[validate] 20 images -> D:\SmartPCB-XAI\results\final_20_image_validation.csv
+[validate] review_required=0 suspicious_zero=0
+[validate] JSON -> D:\SmartPCB-XAI\results\final_20_image_validation.json
+exit=0

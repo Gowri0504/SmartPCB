@@ -1,0 +1,30 @@
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt
+
+Running full pipeline on 23 images...
+  00041200.jpg                             comps=0   defects=5   score=52.2   status=FAIL             time=17205.0ms
+  00041201.jpg                             comps=0   defects=5   score=49.6   status=FAIL             time=4125.4ms
+  00041202.jpg                             comps=0   defects=4   score=58.3   status=FAIL             time=3932.3ms
+  00041203.jpg                             comps=0   defects=5   score=50.6   status=FAIL             time=3243.4ms
+  00041204.jpg                             comps=0   defects=6   score=35.8   status=FAIL             time=3794.5ms
+  00041205.jpg                             comps=0   defects=5   score=45.2   status=FAIL             time=5202.3ms
+  00041206.jpg                             comps=0   defects=5   score=48.8   status=FAIL             time=5661.0ms
+  00041207.jpg                             comps=0   defects=6   score=48.8   status=FAIL             time=4439.3ms
+  00041208.jpg                             comps=0   defects=4   score=54.9   status=FAIL             time=5083.1ms
+  00041209.jpg                             comps=0   defects=5   score=40.2   status=FAIL             time=5212.4ms
+  fics_s1_front_x1536_y4096.jpg            comps=0   defects=0   score=None   status=REVIEW_REQUIRED  time=3198.7ms
+  fics_s1_front_x2048_y1536.jpg            comps=2   defects=1   score=94.5   status=PASS             time=4901.4ms
+  fics_s1_front_x2048_y2048.jpg            comps=1   defects=0   score=100.0  status=PASS             time=3655.5ms
+  fics_s1_front_x2048_y2560.jpg            comps=0   defects=0   score=None   status=REVIEW_REQUIRED  time=2923.3ms
+  fics_s1_front_x2048_y3072.jpg            comps=9   defects=1   score=97.3   status=PASS             time=4071.8ms
+  fics_s1_front_x2048_y3584.jpg            comps=1   defects=0   score=100.0  status=PASS             time=2219.8ms
+  fics_s1_front_x2048_y4096.jpg            comps=0   defects=0   score=None   status=REVIEW_REQUIRED  time=1932.1ms
+  fics_s1_front_x2560_y1024.jpg            comps=1   defects=0   score=100.0  status=PASS             time=2115.3ms
+  fics_s1_front_x2560_y1536.jpg            comps=0   defects=0   score=None   status=REVIEW_REQUIRED  time=2651.1ms
+  fics_s1_front_x2560_y2048.jpg            comps=2   defects=0   score=100.0  status=PASS             time=2575.2ms
+  test.jpg                                 comps=104 defects=1   score=94.7   status=FAIL             time=3920.4ms
+  t2.jpg                                   comps=36  defects=0   score=100.0  status=PASS             time=13290.2ms
+  defect-pcb.jpg                           comps=18  defects=0   score=100.0  status=PASS             time=1134.6ms
+
+Full pipeline report saved: D:\SmartPCB-XAI\metrics\pipeline_20_images_report.csv

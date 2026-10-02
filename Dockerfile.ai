@@ -1,0 +1,44 @@
+# SmartPCB-XAI — AI Microservice (FastAPI / PyTorch / Ultralytics YOLO)
+# Layered: Python slim -> install runtime deps -> copy ai/ + ai_service/ + models/ + scripts/
+# Exposes port 8000 (FastAPI uvicorn)
+
+FROM python:3.11-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+# System libraries required for OpenCV / PIL / reportlab on slim images
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+        libgl1 libglib2.0-0 libsm6 libxrender1 libxext6 \
+        build-essential \
+ && rm -rf /var/lib/apt/lists/*
+
+# Python requirements first (leverages Docker cache)
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip setuptools wheel \
+ && pip install --no-cache-dir -r /app/requirements.txt
+
+# Application source (fastapi service + ai package + reports dirs + scripts)
+COPY ai_service/    /app/ai_service/
+COPY ai/            /app/ai/
+COPY scripts/       /app/scripts/
+COPY models/        /app/models/
+COPY datasets/      /app/datasets/
+COPY reports/       /app/reports/
+COPY .env.example   /app/.env.example
+
+# Create output directories
+RUN mkdir -p /app/reports/generated /app/reports/dataset /app/reports/benchmark
+
+# Expose FastAPI port (must match docker-compose ai-service port)
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD python -c "import urllib.request,sys; r=urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3); sys.exit(0 if r.status==200 else 1)" || exit 1
+
+CMD ["python", "-m", "uvicorn", "ai_service.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,10 @@
+00041200.jpg: GT=['copper', 'mousebite', 'open', 'pin-hole', 'spur'] | PRED=['copper', 'mousebite', 'open', 'pin-hole', 'spur'] | hits=5/5 missed=[] extra=[] | q=52.2 FAIL [SUCCESS]
+00041201.jpg: GT=['copper', 'mousebite', 'open', 'pin-hole'] | PRED=['copper', 'mousebite', 'open', 'pin-hole'] | hits=4/4 missed=[] extra=[] | q=49.6 FAIL [SUCCESS]
+00041202.jpg: GT=['mousebite', 'open', 'pin-hole', 'spur'] | PRED=['mousebite', 'open', 'pin-hole', 'spur'] | hits=4/4 missed=[] extra=[] | q=58.3 FAIL [SUCCESS]
+00041203.jpg: GT=['copper', 'mousebite', 'open', 'pin-hole', 'spur'] | PRED=['copper', 'mousebite', 'open', 'pin-hole', 'spur'] | hits=5/5 missed=[] extra=[] | q=50.6 FAIL [SUCCESS]
+00041204.jpg: GT=['copper', 'mousebite', 'open', 'pin-hole', 'short', 'spur'] | PRED=['copper', 'mousebite', 'open', 'pin-hole', 'short', 'spur'] | hits=6/6 missed=[] extra=[] | q=35.8 FAIL [SUCCESS]
+00041205.jpg: GT=['open', 'pin-hole', 'short', 'spur'] | PRED=['open', 'pin-hole', 'short', 'spur'] | hits=4/4 missed=[] extra=[] | q=45.2 FAIL [SUCCESS]
+00041206.jpg: GT=['copper', 'mousebite', 'open', 'short', 'spur'] | PRED=['copper', 'mousebite', 'open', 'short', 'spur'] | hits=5/5 missed=[] extra=[] | q=48.8 FAIL [SUCCESS]
+00041207.jpg: GT=['copper', 'open', 'short', 'spur'] | PRED=['copper', 'open', 'pin-hole', 'short', 'spur'] | hits=4/4 missed=[] extra=['pin-hole'] | q=48.8 FAIL [SUCCESS]
+
+TOTAL: 8 images | GT defect boxes=37 | predicted=41

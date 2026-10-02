@@ -1,0 +1,46 @@
+==========================================================================
+CLASS-ALIGNMENT DIAGNOSTIC — model=component split=val imgsz=1024
+  checkpoint    : models\component_best.pt
+  model classes : ['relay', 'buzzer', 'ic', 'switch', 'battery', 'transistor', 'capacitor', 'resistor', 'led', 'diode']
+  yaml  classes : ['ICs', 'capacitors', 'diodes', 'inductors', 'resistors', 'transistors']
+==========================================================================
+  25/116 images...
+  50/116 images...
+  75/116 images...
+  100/116 images...
+  116/116 images...
+
+images            : 116
+GT boxes          : 1549
+detections @>=0.25 : 649
+IoU>=0.5 matches  : 481  (mean IoU 0.751)
+
+-- contingency matrix rows=model idx, cols=gt idx --
+  model \ gt   |          ICs   capacitors       diodes    inductors    resistors  transistors
+         relay |            0            0            0            0            0            0   <- idx 0
+        buzzer |            0            0            0            0            0            0   <- idx 1
+            ic |           40            0            1            6            2            4   <- idx 2
+        switch |            1            0            2            0            0            0   <- idx 3
+       battery |            0            0            1            0            0            0   <- idx 4
+    transistor |            4            0            0            3            0           17   <- idx 5
+     capacitor |            0          199           12            2            5            0   <- idx 6
+      resistor |            0           52            3            1          112            0   <- idx 7
+           led |            0            1            6            0            0            0   <- idx 8
+         diode |            0            0            5            0            2            0   <- idx 9
+
+-- per-model-index best correspondence --
+  diagonal pairs (model_idx == gt_idx): 18/481 (3.7%)
+  model idx  2 'ic              ' (n=  53) -> most often GT idx 0 'ICs' (n=40)
+  model idx  3 'switch          ' (n=   3) -> most often GT idx 2 'diodes' (n=2)
+  model idx  4 'battery         ' (n=   1) -> most often GT idx 2 'diodes' (n=1)
+  model idx  5 'transistor      ' (n=  24) -> most often GT idx 5 'transistors' (n=17)
+  model idx  6 'capacitor       ' (n= 218) -> most often GT idx 1 'capacitors' (n=199)
+  model idx  7 'resistor        ' (n= 168) -> most often GT idx 4 'resistors' (n=112)
+  model idx  8 'led             ' (n=   7) -> most often GT idx 2 'diodes' (n=6)
+  model idx  9 'diode           ' (n=   7) -> most often GT idx 2 'diodes' (n=5)
+
+-- unmatched --
+  GT never matched by any detection : {'ICs': 70, 'capacitors': 421, 'diodes': 78, 'inductors': 36, 'resistors': 428, 'transistors': 35}
+  detections matching no GT         : {'relay': 6, 'ic': 15, 'switch': 1, 'battery': 2, 'transistor': 8, 'capacitor': 59, 'resistor': 59, 'led': 10, 'diode': 8}
+
+wrote metrics/alignment/component_val_alignment.json

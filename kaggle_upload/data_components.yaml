@@ -1,0 +1,13 @@
+path: ./components  # Will be rewritten to /kaggle/input/... in notebook
+train: train/images
+val: val/images
+test: test/images
+
+nc: 6
+names:
+  0: ICs
+  1: capacitors
+  2: diodes
+  3: inductors
+  4: resistors
+  5: transistors

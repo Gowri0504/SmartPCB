@@ -1,0 +1,19 @@
+...............................................
+----------------------------------------------------------------------
+Ran 47 tests in 46.495s
+
+OK
+Initializing SmartPCB Inspection Engine...
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt
+Inspection Engine Ready on device=cpu.
+[ModelSafety] component=PASS defect=PASS
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt
+Excel Inspection Report successfully created: tests/test_output.xlsx
+PDF Inspection Report successfully created: tests/test_output.pdf
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: D:\SmartPCB-XAI\models\defect_best.pt

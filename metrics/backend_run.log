@@ -1,0 +1,3 @@
+[SmartPCB Backend] Express server running on port 5000
+[SmartPCB Backend] Connected to FastAPI AI Engine at http://127.0.0.1:8000
+[MongoDB] Connected successfully to mongodb://127.0.0.1:27017/smartpcb_xai

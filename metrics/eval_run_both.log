@@ -1,0 +1,70 @@
+========================================================================
+MODEL EVALUATION — component
+  checkpoint : D:\SmartPCB-XAI\models\component_best.pt
+  data yaml  : D:\SmartPCB-XAI\datasets\components_unified\data.yaml
+  imgsz      : 1024   device: cpu   torch: 2.13.0+cpu   cuda: False
+========================================================================
+  model classes (10): ['relay', 'buzzer', 'ic', 'switch', 'battery', 'transistor', 'capacitor', 'resistor', 'led', 'diode']
+  GT classes    (6): ['ICs', 'capacitors', 'diodes', 'inductors', 'resistors', 'transistors']
+[component/val] 116 images from D:\SmartPCB-XAI\datasets\components_unified\val/images
+  50/116  (58.3s elapsed, 1.17s/img)
+  100/116  (111.9s elapsed, 1.12s/img)
+  116/116  (128.1s elapsed, 1.10s/img)
+[component/val] GT boxes=1549 over 116 images (116 label files present)
+[component/test] 90 images from D:\SmartPCB-XAI\datasets\components_unified\test/images
+  50/90  (33.0s elapsed, 0.66s/img)
+  90/90  (56.9s elapsed, 0.63s/img)
+[component/test] GT boxes=1242 over 90 images (90 label files present)
+  NOTE: GT names outside the canonical space are still scored: ['inductors']
+  WARNING [test]: 4 GT box(es) carry a class index absent from data.yaml and CANNOT be scored: {'gtunk_7': 4}
+
+-- threshold sweep on VALIDATION only (0.1..0.7 step 0.05) --
+  val-calibrated threshold (best micro-F1) = 0.15
+  val micro-F1 at 0.15 = 0.368356
+
+-- TEST metrics (never used for calibration) --
+  @conf 0.25 : mAP50=0.093346 mAP50-95=0.043714 microF1=0.231962
+  @conf 0.15 : mAP50=0.09528 mAP50-95=0.04249 microF1=0.244403
+
+Written: D:\SmartPCB-XAI\metrics\component_metrics.json
+Written: D:\SmartPCB-XAI\metrics\threshold_sweep_component.csv
+Written: D:\SmartPCB-XAI\metrics\per_class_component.csv
+
+========================================================================
+MODEL EVALUATION — defect
+  checkpoint : D:\SmartPCB-XAI\models\defect_best.pt
+  data yaml  : D:\SmartPCB-XAI\datasets\defects\data.yaml
+  imgsz      : 640   device: cpu   torch: 2.13.0+cpu   cuda: False
+========================================================================
+  model classes (6): ['missing_hole', 'mouse_bite', 'open_circuit', 'short', 'spur', 'spurious_copper']
+  GT classes    (6): ['open', 'short', 'mousebite', 'spur', 'copper', 'pin-hole']
+[defect/val] 150 images from D:\SmartPCB-XAI\datasets\defects\val/images
+  50/150  (67.9s elapsed, 1.36s/img)
+  100/150  (134.1s elapsed, 1.34s/img)
+  150/150  (202.0s elapsed, 1.35s/img)
+[defect/val] GT boxes=930 over 150 images (150 label files present)
+[defect/test] 500 images from D:\SmartPCB-XAI\datasets\defects\test/images
+  50/500  (66.7s elapsed, 1.33s/img)
+  100/500  (142.4s elapsed, 1.42s/img)
+  150/500  (227.0s elapsed, 1.51s/img)
+  200/500  (308.6s elapsed, 1.54s/img)
+  250/500  (385.8s elapsed, 1.54s/img)
+  300/500  (461.6s elapsed, 1.54s/img)
+  350/500  (534.3s elapsed, 1.53s/img)
+  400/500  (607.5s elapsed, 1.52s/img)
+  450/500  (685.6s elapsed, 1.52s/img)
+  500/500  (753.7s elapsed, 1.51s/img)
+[defect/test] GT boxes=3140 over 500 images (500 label files present)
+
+-- threshold sweep on VALIDATION only (0.1..0.7 step 0.05) --
+  val-calibrated threshold (best micro-F1) = 0.25
+  val micro-F1 at 0.25 = 0.00738
+
+-- TEST metrics (never used for calibration) --
+  @conf 0.25 : mAP50=0.000112 mAP50-95=7.3e-05 microF1=0.00554
+  @conf 0.25 : mAP50=0.000112 mAP50-95=7.3e-05 microF1=0.00554
+
+Written: D:\SmartPCB-XAI\metrics\defect_metrics.json
+Written: D:\SmartPCB-XAI\metrics\threshold_sweep_defect.csv
+Written: D:\SmartPCB-XAI\metrics\per_class_defect.csv
+
