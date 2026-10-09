@@ -166,3 +166,37 @@ withdrawn.
 Sections 1–3 and §6 of this document remain accurate; §4 row
 `missing_hole` and all of §5 describe a withdrawn premise and are kept only
 as history per the append-only rule.
+
+---
+
+## 2026-10-05 — Legacy raw strings added to DEFECT_CLASS_ALIASES; report decode made index-authoritative
+
+**Why:** `models/defect_best.pt` was restored as a byte-copy of the verified
+legacy checkpoint (md5 bca0be3bff217427e779782866ed16d2, metrics in
+metrics/defect_metrics.json). `verify_checkpoint(..., alias_map=...)`
+reconciles class names at SET level, so the checkpoint's raw strings
+(`missing_hole`, `mouse_bite`, `open_circuit`, `short`, `spur`,
+`spurious_copper`) had to be alias keys mapping onto the canonical 6-set
+via the 2026-09-23 verified index order. The alias-aware safety test then
+passed (status PASS, canonical_mapping_status FULL).
+
+**Consequence (documented collision):** the legacy checkpoint's own strings
+include `short` (its index 3 = canonical `spur`) and `spur` (its index 4 =
+canonical `copper`). A flat name→name table cannot also keep canonical
+`short`/`spur` as identity entries, so string-only decoding of those two
+canonical names now follows the legacy entries (`short→spur`, `spur→copper`).
+This is a known, pinned limitation: index decoding remains authoritative
+whenever a class_id is available (`normalize_defect_class(raw, class_id)`),
+and the inference engine always supplies one. Test
+`test_normalize_defect_class_index_precedence` pins the exact behavior.
+
+**taxonomy_alignment_report() change:** it previously name-mapped
+`DEPLOYED_DEFECT_CLASSES` through `DEFECT_CLASS_ALIASES`, which mis-decoded
+the colliding canonical declaration and reported `short` as undetectable.
+It now decodes the deployed declaration BY INDEX via
+`canonical_defect_class_by_index(idx)`, matching the positional
+architecture documented above. `/health` defect taxonomy again reports
+unmapped_model_classes = [] and undetectable_curated_classes = [].
+
+**Verification:** full suite 53/53 OK (2026-10-05); startup verification
+component=PASS defect=PASS. No lines above were altered (append-only).

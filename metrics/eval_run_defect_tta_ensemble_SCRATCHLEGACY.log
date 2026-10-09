@@ -1,0 +1,15 @@
+﻿========================================================================
+MODEL EVALUATION — defect
+  checkpoint : D:\SmartPCB-XAI\models\defect_best_scratch.pt
+  ensemble   : ['defect_best_legacy.pt']
+  TTA 8-view : True
+  data yaml  : D:\SmartPCB-XAI\datasets\defects\data.yaml
+  alignment  : positional
+  imgsz      : 640   device: cpu   torch: 2.13.0+cpu   cuda: False
+========================================================================
+[Engine] device: cpu
+[Engine] accuracy_mode: tta=True, ensemble+1 checkpoints
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+  + ensemble checkpoint loaded: defect_best_legacy.pt
+[defect/val_engine] 150 images via engine accuracy-mode (tta=True, ensemble+1 ckpts)
+  20/150  (300.1s elapsed, 15.00s/img)

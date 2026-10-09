@@ -1,0 +1,79 @@
+{
+  "phase": "4d-expanded-sweep-from-raw",
+  "best_val_selection": {
+    "global_conf": 0.71,
+    "match_iou": 0.38,
+    "per_class_conf_overrides_raw": {
+      "pin-hole": null,
+      "short": null,
+      "spur": null
+    },
+    "per_class_conf_overrides_effective": {},
+    "val_micro_F1": 0.989757,
+    "val_mAP50": 0.983377,
+    "val_micro_P": 0.992432,
+    "val_micro_R": 0.987097
+  },
+  "locked_test": {
+    "mAP50": 0.927142,
+    "mAP50_95": 0.0,
+    "precision": 0.963426,
+    "recall": 0.956369,
+    "f1": 0.959885,
+    "per_class_AP50": {
+      "open": 0.955708,
+      "short": 0.871584,
+      "mousebite": 0.964763,
+      "spur": 0.949013,
+      "copper": 0.961942,
+      "pin-hole": 0.85984
+    },
+    "per_class_TP_FP_FN": {
+      "open": {
+        "tp": 630,
+        "fp": 2,
+        "fn": 29
+      },
+      "short": {
+        "tp": 425,
+        "fp": 17,
+        "fn": 53
+      },
+      "mousebite": {
+        "tp": 567,
+        "fp": 4,
+        "fn": 19
+      },
+      "spur": {
+        "tp": 461,
+        "fp": 4,
+        "fn": 22
+      },
+      "copper": {
+        "tp": 452,
+        "fp": 10,
+        "fn": 12
+      },
+      "pin-hole": {
+        "tp": 468,
+        "fp": 77,
+        "fn": 2
+      }
+    }
+  },
+  "baseline_comparison": {
+    "baseline_mAP50": 0.929171,
+    "baseline_P": 0.962904,
+    "baseline_R": 0.958917,
+    "baseline_F1": 0.960906,
+    "baseline_mAP50_95": 0.0,
+    "delta_mAP50_pp": -0.2029,
+    "delta_P_pp": 0.0522,
+    "delta_R_pp": -0.2548,
+    "delta_F1_pp": -0.1021
+  },
+  "target_mAP50_ge_96pct": "FAIL",
+  "remaining_gap_pp": 3.2858,
+  "total_eval_time_s": 68.0,
+  "protocol_note": "Deterministic --from-raw re-score on persisted detections; fresh inference/TTA+ensemble will be additive on top of this per-class conf optimization."
+}

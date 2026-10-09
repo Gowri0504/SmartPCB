@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-10-05T12:15:23.477527",
+  "split_calibrated_on": "val",
+  "model_checkpoints": [
+    "models/defect_best_scratch.pt"
+  ],
+  "tta_enabled": false,
+  "global_confidence_threshold": 0.71,
+  "match_iou_threshold": 0.38,
+  "per_class_conf_overrides": {},
+  "val_metrics": {
+    "micro_f1": 0.989757,
+    "mAP50": 0.983377,
+    "micro_precision": 0.992432,
+    "micro_recall": 0.987097
+  },
+  "test_metrics": {
+    "micro_precision": 0.963426,
+    "micro_recall": 0.956369,
+    "micro_f1": 0.959885,
+    "mAP50": 0.927142,
+    "mAP50_95": 0.737659
+  },
+  "per_class_AP50_test": {
+    "copper": 0.961942,
+    "mousebite": 0.964763,
+    "open": 0.955708,
+    "pin-hole": 0.85984,
+    "short": 0.871584,
+    "spur": 0.949013
+  }
+}

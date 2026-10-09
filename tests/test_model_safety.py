@@ -215,10 +215,25 @@ class TestTaxonomyAlignmentReport(unittest.TestCase):
         # but index 1 is the dataset's 'short').
         self.assertEqual(normalize_defect_class("open", class_id=1),
                          ("short", True, "open"))
-        # String-only fallback with canonical names (from-scratch model deployment).
+        # Index decoding is authoritative for the colliding strings too.
+        self.assertEqual(normalize_defect_class("short", class_id=1),
+                         ("short", True, "short"))
+        self.assertEqual(normalize_defect_class("spur", class_id=3),
+                         ("spur", True, "spur"))
+        # String-only fallback with non-colliding canonical names is identity.
         self.assertEqual(normalize_defect_class("pin-hole"), ("pin-hole", True, "pin-hole"))
-        # Canonical names map to themselves.
-        self.assertEqual(normalize_defect_class("short"), ("short", True, "short"))
+        self.assertEqual(normalize_defect_class("open"), ("open", True, "open"))
+        # The colliding canonical strings 'short'/'spur' are ALSO legacy
+        # checkpoint strings (indices 3 and 4); a flat name table cannot
+        # resolve them to themselves, so the documented name-only fallback
+        # follows the alias table. This pins the known limitation explicitly.
+        self.assertEqual(normalize_defect_class("short"), ("spur", True, "short"))
+        self.assertEqual(normalize_defect_class("spur"), ("copper", True, "spur"))
+        # Legacy raw strings decode to their verified index-decoded canonicals.
+        self.assertEqual(normalize_defect_class("missing_hole"), ("open", True, "missing_hole"))
+        self.assertEqual(normalize_defect_class("mouse_bite"), ("short", True, "mouse_bite"))
+        self.assertEqual(normalize_defect_class("open_circuit"), ("mousebite", True, "open_circuit"))
+        self.assertEqual(normalize_defect_class("spurious_copper"), ("pin-hole", True, "spurious_copper"))
 
     def test_every_deployed_component_class_has_alias_entry(self):
         """No deployed component name may fall through to the raw-label path

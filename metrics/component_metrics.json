@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T19:04:44.441181",
+  "generated_at": "2026-10-05T11:42:57.518201",
   "model_key": "component",
   "checkpoint_path": "models/component_best.pt",
   "checkpoint_md5": "ed7db043b3dfbd2a5779c8a7794c5dae",
@@ -38,21 +38,31 @@
     "device": "cpu",
     "imgsz": 1024,
     "iou_nms": 0.45,
-    "low_conf_floor_for_collection": 0.05
+    "low_conf_floor_for_collection": 0.05,
+    "tta": false,
+    "ensemble": false,
+    "ensemble_paths": [],
+    "sweep_mode": "1D (conf)",
+    "conf_range_spec": null,
+    "match_iou_list": [
+      0.5
+    ]
+  },
+  "best_operating_point_val": {
+    "global_confidence": 0.15,
+    "match_iou": 0.5,
+    "per_class_conf_overrides": null,
+    "calibrated_on": "val_split",
+    "selection_objective": "(micro_F1, mAP50, micro_precision, micro_recall) lex",
+    "val_metrics": {
+      "micro_f1": 0.368356,
+      "mAP50": 0.136118,
+      "micro_precision": 0.509112,
+      "micro_recall": 0.288573
+    }
   },
   "class_spaces": {
-    "model_raw_classes": [
-      "relay",
-      "buzzer",
-      "ic",
-      "switch",
-      "battery",
-      "transistor",
-      "capacitor",
-      "resistor",
-      "led",
-      "diode"
-    ],
+    "model_raw_classes": null,
     "dataset_gt_classes": [
       "ICs",
       "capacitors",
@@ -92,6 +102,7 @@
     {
       "confidence_threshold": 0.1,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -275,6 +286,7 @@
     {
       "confidence_threshold": 0.15,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -458,6 +470,7 @@
     {
       "confidence_threshold": 0.2,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -641,6 +654,7 @@
     {
       "confidence_threshold": 0.25,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -815,6 +829,7 @@
     {
       "confidence_threshold": 0.3,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -989,6 +1004,7 @@
     {
       "confidence_threshold": 0.35,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -1163,6 +1179,7 @@
     {
       "confidence_threshold": 0.4,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -1337,6 +1354,7 @@
     {
       "confidence_threshold": 0.45,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -1511,6 +1529,7 @@
     {
       "confidence_threshold": 0.5,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -1685,6 +1704,7 @@
     {
       "confidence_threshold": 0.55,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "gt_count": 0,
@@ -1850,6 +1870,7 @@
     {
       "confidence_threshold": 0.6,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "gt_count": 0,
@@ -2006,6 +2027,7 @@
     {
       "confidence_threshold": 0.65,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "gt_count": 0,
@@ -2162,6 +2184,7 @@
     {
       "confidence_threshold": 0.7,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "gt_count": 0,
@@ -2321,6 +2344,7 @@
     "metrics": {
       "confidence_threshold": 0.25,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,
@@ -2533,6 +2557,7 @@
     "metrics": {
       "confidence_threshold": 0.15,
       "iou_match_threshold": 0.5,
+      "per_class_conf_overrides": null,
       "per_class": {
         "battery": {
           "tp": 0,

@@ -274,12 +274,16 @@ def taxonomy_alignment_report() -> dict:
         UNMAPPED_COMPONENT_CLASSES, UNDETECTABLE_CURATED_COMPONENT_CLASSES,
         DEFECT_CLASS_ALIASES, APPROXIMATE_DEFECT_ALIASES,
         DEFECT_ALIGNMENT_MODE, DEFECT_MODEL_INDEX_TO_CANONICAL,
+        canonical_defect_class_by_index,
     )
 
-    defect_mapped = {
-        raw: DEFECT_CLASS_ALIASES.get(raw.lower(), raw)
-        for raw in DEPLOYED_DEFECT_CLASSES
-    }
+    # Index decoding is authoritative: the name-level alias table also carries
+    # the legacy checkpoint's raw strings, whose 'short'/'spur' entries collide
+    # with canonical names and must not be applied to the deployed declaration.
+    defect_mapped = {}
+    for _idx, raw in enumerate(DEPLOYED_DEFECT_CLASSES):
+        canon, _mapped, _ = canonical_defect_class_by_index(_idx)
+        defect_mapped[raw] = canon if canon is not None else raw
     return {
         "components": {
             "deployed_model_classes": list(DEPLOYED_COMPONENT_CLASSES),

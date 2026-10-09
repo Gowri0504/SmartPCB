@@ -1,0 +1,38 @@
+{
+  "best_val_selected": {
+    "conf": 0.68,
+    "iou": 0.38,
+    "overrides": {
+      "pin-hole": 0.76,
+      "short": 0.63,
+      "spur": 0.65
+    },
+    "VAL": {
+      "mAP50": 0.98361055,
+      "F1": 0.98974636,
+      "P": 0.99349946,
+      "R": 0.98602151
+    },
+    "TEST": {
+      "mAP50": 0.934651,
+      "mAP50_95": 0.738339,
+      "P": 0.964582,
+      "R": 0.962739,
+      "F1": 0.96366,
+      "TP": 3023,
+      "FP": 111,
+      "FN": 117,
+      "per_class_AP50": {
+        "open": 0.961242,
+        "short": 0.898047,
+        "mousebite": 0.971573,
+        "spur": 0.949805,
+        "copper": 0.959728,
+        "pin-hole": 0.867512
+      }
+    },
+    "gap_pp_vs_96_target": 2.5349,
+    "search_space": "3920 tuples, confs=[0.68, 0.69, 0.7, 0.71] ious=[0.38, 0.4, 0.42, 0.44] offsets pin-hole=[0.08, 0.1, 0.12, 0.14, 0.16, 0.18, None] short=[-0.05, -0.02, 0.0, 0.03, 0.05, 0.08, None]"
+  },
+  "baseline_comparison_conf070": "original calibrated point mAP50=92.92% for reference"
+}

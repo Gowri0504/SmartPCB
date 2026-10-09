@@ -1,0 +1,34 @@
+{
+  "baseline_locked": {
+    "op_name": "conf 0.71 / IoU 0.38 (fine-sweep val best)",
+    "global_conf": 0.71,
+    "match_iou": 0.38,
+    "overrides": null,
+    "VAL": {
+      "F1": 0.98975741,
+      "mAP50": 0.98337655,
+      "P": 0.99243243,
+      "R": 0.98709677
+    },
+    "TEST": {
+      "mAP50": 0.927142,
+      "mAP50_95": 0.737659,
+      "P": 0.963426,
+      "R": 0.956369,
+      "F1": 0.959885,
+      "TP": 3003,
+      "FP": 114,
+      "FN": 137,
+      "per_class_AP50": {
+        "open": 0.955708,
+        "short": 0.871584,
+        "mousebite": 0.964763,
+        "spur": 0.949013,
+        "copper": 0.961942,
+        "pin-hole": 0.85984
+      }
+    },
+    "gap_pp_vs_96_target": 3.2858,
+    "tta_ensemble_status": "running_background_cpu (~15s/img \u00d7 650 imgs)"
+  }
+}

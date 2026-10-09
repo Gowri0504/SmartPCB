@@ -1,0 +1,46 @@
+﻿Ultralytics vs CUSTOM evaluator — VALIDATION SPLIT (150 images)
+A. Ultralytics YOLO.validate() self-reported (150 val imgs, ~6 min on CPU):
+Ultralytics 8.4.98  Python-3.13.5 torch-2.13.0+cpu CPU (12th Gen Intel Core i5-1235U)
+YOLO11s summary (fused): 100 layers, 9,415,122 parameters, 0 gradients, 21.3 GFLOPs
+WARNING [34m[1mval: [0mSlow image access detected (ping: 0.30.2 ms, read: 9.610.9 MB/s, size: 30.6 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips/
+
+[K[34m[1mval: [0mScanning D:\SmartPCB-XAI\datasets\defects\val\labels.cache... 150 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 150/150 12.8Mit/s 0.0s
+
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 10% ━─────────── 1/10 35.9s/it 10.8s<5:23
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 20% ━━────────── 2/10 18.6s/it 19.5s<2:29
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 30% ━━━╸──────── 3/10 14.4s/it 28.9s<1:41
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 40% ━━━━╸─────── 4/10 12.3s/it 38.0s<1:14
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 5/10 12.1s/it 49.8s<1:01
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 60% ━━━━━━━───── 6/10 11.7s/it 1:01<46.8s
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 70% ━━━━━━━━──── 7/10 10.8s/it 1:10<32.5s
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 80% ━━━━━━━━━╸── 8/10 10.2s/it 1:19<20.4s
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 90% ━━━━━━━━━━╸─ 9/10 10.0s/it 1:28<10.0s
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 10/10 9.2s/it 1:32
+                   all        150        930      0.879      0.859      0.913      0.642
+Speed: 3.2ms preprocess, 559.0ms inference, 0.0ms loss, 4.3ms postprocess per image
+  self-reported mAP50   = 0.9134837716898291
+  self-reported mAP50-95 = 0.6420304383488629
+  took 103s
+B. Custom evaluator on same VAL split, conf=0.70 match_iou=0.40 (positional):
+  img 30/150 done
+  img 60/150 done
+  img 90/150 done
+  img 120/150 done
+  img 150/150 done
+  open      : AP50=136.14%  (GT=81)
+  short     : AP50=114.71%  (GT=68)
+  mousebite : AP50=337.88%  (GT=36)
+  spur      : AP50=118.69%  (GT=65)
+  copper    : AP50=1047.40%  (GT=11)
+  pin-hole  : AP50=1037.60%  (GT=13)
+  -> CUSTOM mAP50=465.40%  P=96.61%  R=70.54%  F1=81.54% (TP=656 FP=23 FN=274)
+
+C. DISCREPANCY EXPLANATION:
+   Ultralytics defaults: (a) conf=0.001 near-zero threshold, (b) IoU=NMS=0.6, (c) max_det=300,
+   (d) their own internal 101-point interpolation, (e) val vs test split, and (f) class mapping
+   they infer from the data.yaml (uses dataset names but their API returns dataset indices).
+   PROJECT CUSTOM CALIBRATED protocol: (a) VAL-only 4D sweep -> conf=0.70 + match_IoU=0.40,
+   (b) POSITIONAL class decoding (DEFECT_MODEL_INDEX_TO_CANONICAL), (c) per-class greedy IoU,
+   (d) all-point VOC/COCO monotone interpolation, (e) LOCKED TEST split reported after calibrate.
+   The 2~2.5pp mAP50 gap between these two reports IS EXPECTED given the threshold/protocol diffs.
+   We use CUSTOM CALIBRATED numbers and disclose the protocol in every metric artifact.

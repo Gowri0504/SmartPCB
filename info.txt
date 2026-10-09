@@ -1,4 +1,12 @@
-# Smart PCB Defect Detection & Intelligent Component Identification Using Explainable AI, Digital Twin, and Predictive Manufacturing
+  # Terminal 1 — AI service (FastAPI, port 8000; loads both YOLO models ~20 s):
+  python -m uvicorn ai_service.main:app --host 127.0.0.1 --port 8000
+
+  # Terminal 2 — Backend (Express, port 5000, connects to MongoDB):
+  cd backend && node server.js
+
+  # Terminal 3 — Frontend (Vite dev server, port 3000):
+  cd frontend && npm run dev
+  # Smart PCB Defect Detection & Intelligent Component Identification Using Explainable AI, Digital Twin, and Predictive Manufacturing
 
 ## 1. Project Title
 

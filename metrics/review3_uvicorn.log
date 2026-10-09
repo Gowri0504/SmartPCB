@@ -1,0 +1,11 @@
+INFO:     Started server process [27820]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Initializing SmartPCB Inspection Engine...
+[Engine] device: cpu
+Loading Component Detector: D:\SmartPCB-XAI\models\component_best.pt
+Loading Defect Detector: yolo11n.pt
+Inspection Engine Ready on device=cpu.
+[ModelSafety] component=PASS defect=FAIL
+INFO:     127.0.0.1:57765 - "GET /docs HTTP/1.1" 200 OK

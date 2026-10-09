@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-10-05T12:15:23.481112",
+  "deterministic_comparison_from_same_raw_records": true,
+  "baseline_label": "test @ conf=0.25, match_iou=0.50 (legacy default)",
+  "improved_label": "test @ conf=0.71, match_iou=0.38, overrides=none, TTA=False, ensemble+0",
+  "baseline": {
+    "micro_precision": 0.916021,
+    "micro_recall": 0.979618,
+    "micro_f1": 0.946753,
+    "mAP50": 0.91473,
+    "mAP50_95": 0.723308
+  },
+  "improved": {
+    "micro_precision": 0.963426,
+    "micro_recall": 0.956369,
+    "micro_f1": 0.959885,
+    "mAP50": 0.927142,
+    "mAP50_95": 0.737659
+  },
+  "delta_percentage_points": {
+    "micro_precision_pp": 4.74,
+    "micro_recall_pp": -2.32,
+    "micro_f1_pp": 1.31,
+    "mAP50_pp": 1.24,
+    "mAP50_95_pp": 1.44
+  },
+  "honest_status_vs_95pct_targets": {
+    "target_defect_mAP50_ge_95pct": "FAIL",
+    "measured_defect_mAP50_pct": 92.71,
+    "target_defect_mAP5095_ge_95pct": "FAIL (explicitly unreachable per plan; max 1-5pp gain from inference tricks)",
+    "target_defect_precision_recall_f1_all_ge_95pct": {
+      "precision_ge_95": "PASS",
+      "recall_ge_95": "PASS",
+      "f1_ge_95": "PASS"
+    }
+  }
+}

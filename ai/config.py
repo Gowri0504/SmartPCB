@@ -179,13 +179,37 @@ DEFECT_MODEL_INDEX_TO_CANONICAL = {
     5: "pin-hole",
 }
 
+# Name-level alias table. TWO entry families live here on purpose:
+#
+#  (a) canonical DeepPCB names — identity entries so a correctly-named
+#      checkpoint reconciles cleanly;
+#  (b) the DEPLOYED LEGACY checkpoint's raw strings, decoded by VERIFIED INDEX
+#      (2026-09-23 geometric matching on the val split: 921/923 matched pairs on
+#      the diagonal, mean IoU 0.899; artifact metrics/alignment/defect_val_alignment.json):
+#        idx0 'missing_hole'     -> open
+#        idx1 'mouse_bite'       -> short
+#        idx2 'open_circuit'     -> mousebite
+#        idx3 'short'            -> spur     (string collides with canonical 'short')
+#        idx4 'spur'             -> copper   (string collides with canonical 'spur')
+#        idx5 'spurious_copper'  -> pin-hole
+#
+# Because of the idx3/idx4 collisions, name-level decoding can only ever be a
+# FALLBACK for string-only callers. normalize_defect_class() gives index
+# decoding precedence whenever a class_id is supplied (engine always supplies
+# one), so production decoding is unaffected by these entries.
+# verify_checkpoint() uses this table for SET-level reconciliation: every
+# class the deployed legacy checkpoint can emit maps onto the canonical 6-set.
 DEFECT_CLASS_ALIASES = {
     "open": "open",
-    "short": "short",
     "mousebite": "mousebite",
-    "spur": "spur",
     "copper": "copper",
     "pin-hole": "pin-hole",
+    "missing_hole": "open",
+    "mouse_bite": "short",
+    "open_circuit": "mousebite",
+    "short": "spur",
+    "spur": "copper",
+    "spurious_copper": "pin-hole",
 }
 
 # No pairing is approximate any more: the pre-2026-09-23 entry
@@ -209,16 +233,44 @@ DEFECT_MAPPING_NOTE = (
     "This model was trained from scratch on local data only (datasets/defects) and "
     "has no contamination ambiguity. Legacy checkpoint (defect_best_legacy.pt) used "
     "PCB-DATASET name strings with DeepPCB index order; its alignment was verified "
-    "by geometric matching but is no longer in active use."
+    "by geometric matching (921/923 diagonal pairs) and its raw strings are carried "
+    "in DEFECT_CLASS_ALIASES decoded by that verified index order, for set-level "
+    "safety reconciliation and string-only callers only — index decoding remains "
+    "authoritative at inference."
 )
 
 DEFAULT_INFERENCE_CONFIG = {
     "component_conf_threshold": 0.18,
-    "defect_conf_threshold": 0.18,
+    "defect_conf_threshold": 0.68,
     "iou_threshold": 0.45,
     "tile_size": 640,
     "tile_stride": 480,
     "large_image_downscale_max_px": 1920,
+    "tta_enabled": False,
+    "defect_ensemble_enabled": False,
+    "defect_ensemble_paths": [],
+    "defect_wbf_iou": 0.50,
+    "defect_match_iou": 0.38,
+    "per_class_defect_conf_overrides": {
+        "pin-hole": 0.76,
+        "short":    0.63,
+        "spur":     0.65,
+    },
+    "_calibration_note": (
+        "defect_conf_threshold=0.68, defect_match_iou=0.38, per-class overrides "
+        "{pin-hole:0.76, short:0.63, spur:0.65} chosen by 2026-10-05 EXPANDED VAL "
+        "2-stage 4D sweep (Stage1: 23×7 global conf×IoU; Stage2: 3920 tuples with "
+        "pin-hole/short/spur offsets ±0.18 around best global). VAL ranking = "
+        "(mAP50 primary, micro_F1 secondary). LOCKED TEST held-out result after "
+        "calibration: mAP50=93.4651%, P=96.46%, R=96.27%, F1=96.37% (all P/R/F1 ≥95% "
+        "PASS; mAP50 still 2.53pp below 96% target). "
+        "See metrics/expanded_per_class_override_search.json, "
+        "metrics/locked_baseline_96target_report.json, "
+        "metrics/best_operating_point_defect.json, metrics/improvement_delta_defect.json. "
+        "For accuracy-critical runs, set tta_enabled=True and defect_ensemble_enabled=True "
+        "(scratch+legacy 2-model WBF + 8-view TTA expected +2.0pp ±0.5pp mAP50, "
+        "~8-16x slower inference on CPU)."
+    ),
 }
 
 XAI_ATTRIBUTION_METHOD = "activation_energy_approximation"

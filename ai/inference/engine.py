@@ -18,6 +18,7 @@ from ai.config import (
 from ai.severity.severity_engine import SeverityEngine
 from ai.recommendation.repair_kb import RepairKnowledgeBase
 from ai.xai.gradcam import YOLOGradCAM
+from ai.inference.ensemble import ensemble_predict, weighted_boxes_fusion, run_tta_8view
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 MODELS_DIR = os.path.join(ROOT, "models")
@@ -90,16 +91,30 @@ class SmartPCBInspectionEngine:
     4. Activation-Energy XAI Approximation (see ai/xai/gradcam.py; Part 2 target: true Grad-CAM++)
     5. Deterministic project-defined defect Severity & PCB Quality Scoring
     6. Prescriptive rule-based Repair Knowledge Base (IPC-A-610 as guidance only)
+    7. [2026-10-05] Optional TTA (8-view) + Multi-checkpoint Ensemble (Weighted Boxes Fusion)
+       for accuracy-critical runs. Opt-in only due to ~4-16x latency penalty.
     """
 
-    def __init__(self, component_model_path=None, defect_model_path=None, device=None):
+    def __init__(self, component_model_path=None, defect_model_path=None, device=None,
+                 defect_ensemble_paths=None, tta_enabled: bool = False,
+                 per_class_defect_conf_overrides: dict | None = None,
+                 wbf_iou: float = 0.5):
         if component_model_path is None:
             cand = os.path.join(MODELS_DIR, "component_best.pt")
             component_model_path = cand if os.path.exists(cand) else "yolo11n.pt"
 
+        # Defect model: accept single path (str) OR list of paths for ensemble mode.
+        # First entry is treated as the "primary" checkpoint; others are fused in via WBF.
+        defect_primary_path = None
         if defect_model_path is None:
             cand = os.path.join(MODELS_DIR, "defect_best.pt")
-            defect_model_path = cand if os.path.exists(cand) else "yolo11n.pt"
+            defect_primary_path = cand if os.path.exists(cand) else "yolo11n.pt"
+        elif isinstance(defect_model_path, (list, tuple)):
+            defect_primary_path = str(defect_model_path[0])
+            extra = [str(p) for p in defect_model_path[1:]]
+            defect_ensemble_paths = list(defect_ensemble_paths or []) + extra
+        else:
+            defect_primary_path = str(defect_model_path)
 
         # Graceful device selection: use CUDA if available AND explicitly requested/detected; else CPU.
         if device is None:
@@ -109,9 +124,16 @@ class SmartPCBInspectionEngine:
         self.device = device
 
         self.component_model_path = component_model_path
-        self.defect_model_path = defect_model_path
+        self.defect_model_path = defect_primary_path  # primary (used for XAI / baseline path)
+
+        # --- Accuracy-mode tuning knobs (opt-in, default = off = backwards compatible) ---
+        self.tta_enabled = bool(tta_enabled)
+        self.defect_ensemble_paths = list(defect_ensemble_paths or [])  # additional checkpoints to fuse
+        self.per_class_defect_conf_overrides = dict(per_class_defect_conf_overrides or {})
+        self.wbf_iou = float(wbf_iou)
 
         print(f"[Engine] device: {device}")
+        print(f"[Engine] accuracy_mode: tta={self.tta_enabled}, ensemble+{len(self.defect_ensemble_paths)} checkpoints")
         print(f"Loading Component Detector: {component_model_path}")
         try:
             self.comp_model = YOLO(component_model_path)
@@ -121,14 +143,28 @@ class SmartPCBInspectionEngine:
             self.comp_model = None
             self.component_model_loaded = False
 
-        print(f"Loading Defect Detector: {defect_model_path}")
+        # --- Defect checkpoint(s): primary + ensemble extras ---
+        self.defect_models = []  # list of YOLO instances (len >= 1)
         try:
-            self.defect_model = YOLO(defect_model_path)
+            primary_defect = YOLO(defect_primary_path)
+            self.defect_models.append(primary_defect)
+            self.defect_model = primary_defect  # primary, backward-compat alias
             self.defect_model_loaded = True
         except Exception as e:
-            print(f"WARNING: Defect model failed to load, fallback skipped. {e}")
+            print(f"WARNING: Primary defect model failed to load. {e}")
             self.defect_model = None
             self.defect_model_loaded = False
+
+        for extra_path in self.defect_ensemble_paths:
+            if not os.path.exists(extra_path):
+                print(f"WARNING: Ensemble defect checkpoint missing, skipping: {extra_path}")
+                continue
+            try:
+                m = YOLO(extra_path)
+                self.defect_models.append(m)
+                print(f"  + ensemble checkpoint loaded: {os.path.basename(extra_path)}")
+            except Exception as e:
+                print(f"WARNING: Ensemble defect checkpoint failed: {extra_path}. {e}")
 
         try:
             self.xai_engine = YOLOGradCAM(self.defect_model) if self.defect_model_loaded else None
@@ -289,6 +325,48 @@ class SmartPCBInspectionEngine:
         cleaned = self.apply_nms(all_detections, iou_thresh=0.45)
         return cleaned
 
+    # ------------------------------------------------------------------
+    # Accuracy-mode: TTA + Multi-checkpoint Ensemble for DEFECTS
+    # ------------------------------------------------------------------
+
+    def _predict_defects_accuracy_mode(self, img_bgr, conf_thresh, nms_iou):
+        """
+        Defect-detection path used when tta=True or >1 defect models are loaded.
+        Runs every loaded defect model through _predict_tiled across TTA views,
+        then fuses all results with Weighted Boxes Fusion.
+
+        Returns a flat list of detection dicts (same schema as _predict_tiled).
+        """
+        collected = []
+
+        views = run_tta_8view(img_bgr) if self.tta_enabled else \
+            [("orig", img_bgr, lambda bs: [dict(b) for b in bs])]
+
+        for aug_name, aug_img, inv_fn in views:
+            for model_i, model in enumerate(self.defect_models):
+                tiles_out = self._predict_tiled(model, aug_img, conf_thresh, is_defect=True)
+                for d in tiles_out:
+                    d = dict(d)
+                    d["_view"] = aug_name
+                    d["_model_i"] = model_i
+                mapped = inv_fn(tiles_out)
+                collected.extend(mapped)
+
+        # WBF fusion across all views × models (class-aware bucketed)
+        fused = weighted_boxes_fusion(
+            collected,
+            iou_thresh=nms_iou,
+            conf_type="avg",
+            class_aware=True,
+        )
+
+        # Strip internal tags
+        for b in fused:
+            b.pop("_view", None)
+            b.pop("_model_i", None)
+            b.pop("_cluster_size", None)
+        return fused
+
     def inspect(self, image_input, conf_threshold=0.18, iou_threshold=0.45, generate_xai=True):
         _t_total_start = time.perf_counter()
         timestamp = datetime.now().isoformat()
@@ -336,7 +414,7 @@ class SmartPCBInspectionEngine:
                 "center": [round((xyxy[0] + xyxy[2]) / 2.0, 1), round((xyxy[1] + xyxy[3]) / 2.0, 1)]
             })
 
-        # 2. Multi-Scale Defect Detection
+        # 2. Multi-Scale Defect Detection (optional TTA + ensemble accuracy-mode)
         _t_def_start = time.perf_counter()
         actual_defect_thresh = max(0.12, min(0.60, conf_threshold))
         if self.defect_model is None:
@@ -344,7 +422,35 @@ class SmartPCBInspectionEngine:
             pipeline_warnings_pre_defect = ["Defect model not loaded; skipping defect detection."]
         else:
             pipeline_warnings_pre_defect = []
-            raw_defects = self._predict_tiled(self.defect_model, img_bgr, actual_defect_thresh, is_defect=True)
+            use_accuracy_mode = self.tta_enabled or len(self.defect_models) > 1
+            if use_accuracy_mode:
+                raw_defects = self._predict_defects_accuracy_mode(
+                    img_bgr, actual_defect_thresh, nms_iou=iou_threshold if iou_threshold else self.wbf_iou
+                )
+            else:
+                raw_defects = self._predict_tiled(self.defect_model, img_bgr, actual_defect_thresh, is_defect=True)
+
+            # --- Per-class confidence overrides (4D calibration support) ---
+            if self.per_class_defect_conf_overrides:
+                overrides_applied = 0
+                filtered = []
+                for d in raw_defects:
+                    cls = d.get("class")
+                    ov = self.per_class_defect_conf_overrides.get(cls)
+                    if ov is None:
+                        filtered.append(d)
+                    elif float(d.get("confidence", 0.0)) >= float(ov):
+                        filtered.append(d)
+                        overrides_applied += 1
+                    else:
+                        continue  # dropped by stricter class-specific threshold
+                raw_defects = filtered
+                if overrides_applied > 0 or sum(
+                    1 for d in raw_defects if d.get("class") in self.per_class_defect_conf_overrides
+                ) < sum(
+                    1 for _ in self.per_class_defect_conf_overrides
+                ):
+                    pass  # info only; do not bloat warnings for every image
         _defect_inference_ms = (time.perf_counter() - _t_def_start) * 1000.0
 
         # Postprocess region: defect assembly, severity scoring, KB recommendations,
@@ -538,6 +644,11 @@ class SmartPCBInspectionEngine:
             "xai_ms": round(_xai_ms, 4),
             "postprocess_ms": round(_postprocess_ms, 4),
             "total_ms": round(_total_ms, 4),
+            "accuracy_mode": {
+                "tta_enabled": bool(self.tta_enabled),
+                "ensemble_count": int(len(self.defect_models) if hasattr(self, "defect_models") else 0),
+                "per_class_conf_overrides_applied": bool(getattr(self, "per_class_defect_conf_overrides", None)),
+            },
         }
 
         return {
