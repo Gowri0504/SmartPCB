@@ -1,0 +1,34 @@
+E. A Methodological Finding: Metric Definition Errors  
+During iterative development, an internal evaluation utility was 
+found to report a quantity labeled "mAP@50" that varied 
+continuously with the confidence threshold supplied to it (for 
+example, 94.28% at threshold 0.10 rising monotonically to 96.87% 
+at threshold 0.35 on a validation split). Standard mAP@50, as 
+defined by the precision -recall integral in Eq. (1) -(2) below and as 
+computed by the Ultralytics validation API used for every number 
+in Tables I -IV threshold -independent is by construction because 
+threshold -independent integrates precision over the recall range for 
+each class, before averaging:  
+AP = ∫₀¹ P(R) dR, mAP  = (1/M) Σ AP(i) (1) -(2) 
+A metric that changes materially with a manually supplied 
+confidence threshold is, by this definition, not mAP; it is more likely 
+a precision/recall/F1 figure computed at a single fixed operating 
+point and mislabeled. We flag this not to single out any one  script, 
+but because we believe it is a common and under -reported failure 
+mode in applied PCB -inspection literature and internal tooling alike: 
+any accuracy claim that cites a confidence threshold alongside 
+"mAP " merits independent re -verification with the standard, 
+threshold -integrated computation before being trusted or published. 
+All figures in Tables I -IV were produced only after this re -
+verification step.  
+VI. DISCUSSION, LIMITATIONS, AND 
+IMPROVEMENT PLAN  
+A. Honest Limitations  
+Four limitations materially qualify the results in this paper. First 
+even though the domain -boundary ambiguity mentioned in Section 
+V-C was mostly cleared up for the defect detector through retraining 
+from scratch the 98.3% result from the legacy checkpoin t is still 
+listed as a disclosed but not adopted data point. That’s because we 
+were unable to confirm what exactly made up the external training 
+data used for it. Second the explainability module relies on an 
+activation -energy heuristic, 

@@ -1,0 +1,35 @@
+REFERENCES  
+[1] Q. Ling and N. A. M. Isa, "Printed circuit board defect detection 
+methods based on image processing, machine learning and deep 
+learning: A survey," IEEE Access, vol. 11, pp. 15921 -15944, 
+2023.  
+[2] J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, "You only 
+look once: Unified, real -time object detection," in Proc. IEEE 
+Conf. Comput. Vis. Pattern Recognit. (CVPR), 2016, pp. 779 -
+788. 
+[3] X. Ye, L. Huang, J. Wang, X. Hu, J. Xu, and C. Zhang, "A 
+lightweight PCB defect detection algorithm based on an 
+improved YOLOv11s," IEEE Access, vol. 14, pp. 56412 -56426, 
+2026, doi: 10.1109/ACCESS.2026.3678967.  
+[4] S. Tang, F. He, X. Huang, and J. Yang, "Online PCB defect 
+detector on a new PCB defect dataset," arXiv:1902.06197, 2019.  [5] R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, 
+and D. Batra, "Grad -CAM: Visual explanations from deep 
+networks via gradient -based localization," in Proc. IEEE Int. 
+Conf. Comput. Vis. (ICCV), 2017, pp. 618 -626. 
+[6] A. Chattopadhay, A. Sarkar, P. Howlader, and V. N. 
+Balasubramanian, "Grad -CAM++: Generalized gradient -based 
+visual explanations for deep convolutional networks," in Proc. 
+IEEE Winter Conf. Appl. Comput. Vis. (WACV), 2018, pp. 839 -
+847. 
+[7] F. Tao, H. Zhang, A. Liu, and A. Y. C. Nee, "Digital twin in 
+industry: State -of-the-art," IEEE Trans. Ind. Informat., vol. 15, 
+no. 4, pp. 2405 -2415, 2019.  
+[8] P. Bhattacharya and M. F. Cloutier, "Explainable artificial 
+intelligence for industrial applications," in Proc. IEEE Int. Conf. 
+Ind. Technol., 2022.  
+[9] M. Shakya et al., "FICS -PCB: A multi -modal image dataset for 
+automated printed circuit board visual inspection," IACR 
+Cryptol. ePrint Arch., 2020.  
+[10] IPC -A-610G, Acceptability of Electronic Assemblies, IPC — 
+Association Connecting Elect ronics Industries, 2020.  
+

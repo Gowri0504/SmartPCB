@@ -26,7 +26,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'DEVELOPMENT-ONLY-INSECURE-smartpcb
 // default allows the local Vite dev server only; when the frontend is served
 // from the same origin as this API (production build served by Express), no
 // cross-origin access is needed at all.
-const CORS_ORIGINS = (process.env.CORS_ORIGIN || 'http://localhost:5173,http://127.0.0.1:5173')
+const CORS_ORIGINS = (process.env.CORS_ORIGIN || 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173')
   .split(',').map(s => s.trim()).filter(Boolean);
 app.use(cors({
   origin: (origin, cb) => {

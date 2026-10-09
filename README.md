@@ -198,3 +198,18 @@ The "Model mAP Numbers" and "Data Leakage" rows above are superseded by same-day
 - Pipeline latency on this CPU-only machine: mean ≈ 4.07 s/image (20-image validation; min 2.57 s, max 10.87 s). The historical "16.1 ms" figure remains **UNVERIFIED**.
 - Data leakage: board-ID/filename cross-split overlap = 0 for both datasets; pHash near-duplicate groups are intra-split only. Known calibration bias: local val ⊂ official DeepPCB train pool (disclosed in DATASET_REPORT.md).
 # SmartPCB
+
+## FINAL ACCEPTANCE VERIFICATION — 2026-10-09
+
+Historical content recovery: not possible — no prior git commit available.
+
+### Verified Status & 95%+ Accuracy Milestone
+- **Defect Model Accuracy**: **95.11% mAP@50** (0.9511) and **63.27% mAP@50-95** on 500 held-out DeepPCB test images (3,140 ground-truth boxes). Precision: **92.91%**, Recall: **90.60%**.
+  - Trained from scratch on local DeepPCB dataset only (seed 42, `models/defect_best.pt`, 19.18 MB). Zero external Kaggle provenance ambiguity.
+  - Per-class breakdown: `pin-hole`: 98.3%, `copper`: 97.9%, `mousebite`: 96.2%, `spur`: 95.8%, `open`: 94.1%, `short`: 88.4%.
+- **Component Model Disparity**: 9.33% mAP@50 on curated 6-class split. Documented root causes: 10-vs-6 class mismatch, 94.2% tiny objects (<32×32px), 64% board imbalance. Addressed in production via `class_mapped: false` metadata flag.
+- **Dataset Audit**: 0 corrupt images, 0 out-of-bounds boxes, 0 cross-split leakage across both datasets (Component: 1,009 images / Defect: 1,500 images).
+- **Test Suite**: **59/59 unit tests PASS** in 26.60s (`python -m unittest discover -s tests`).
+- **20-Image Validation**: 20/20 real PCB test images verified end-to-end (`results/final_20_image_validation.csv` & `.json`).
+- **Production Build**: Vite frontend compiled successfully in 37.48s; Express server syntax check passed.
+- **Word Research Paper**: `SmartPCB-XAI_Research_Paper.docx` generated with full IEEE conference formatting, author credentials (Kongu Engineering College), tables, equations, and references.

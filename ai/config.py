@@ -201,14 +201,14 @@ DEFECT_MODEL_INDEX_TO_CANONICAL = {
 # class the deployed legacy checkpoint can emit maps onto the canonical 6-set.
 DEFECT_CLASS_ALIASES = {
     "open": "open",
+    "short": "short",
     "mousebite": "mousebite",
+    "spur": "spur",
     "copper": "copper",
     "pin-hole": "pin-hole",
     "missing_hole": "open",
     "mouse_bite": "short",
     "open_circuit": "mousebite",
-    "short": "spur",
-    "spur": "copper",
     "spurious_copper": "pin-hole",
 }
 

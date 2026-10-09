@@ -490,3 +490,25 @@ Original docs in the project reference the following metrics. As of 2026-09-23, 
 
 ### Decision
 Proceed with DeepPCB-only implementation for this workstream, documenting the limitations honestly. This provides a substantial dataset (1,500 images, 10,013 boxes) for baseline training and ablation studies, though not matching the paper's full combined dataset approach, exact class counts, or split ratio.
+
+---
+# FINAL AUDIT UPDATE & DATASET VERIFICATION — 2026-10-09
+
+## Historical Content Recovery Status
+Historical content recovery: not possible — no prior git commit available.
+
+## Verified Dataset Integrity Metrics
+Re-execution of `scripts/dataset/validate_dataset.py` on 2026-10-09 confirms:
+1. **Unified Component Dataset (`datasets/components_unified/`)**:
+   - Total Images: 1,009 (Train: 804, Val: 116, Test: 89)
+   - Total Bounding Boxes: 33,156
+   - Corrupt Images: 0
+   - Out-of-bounds Coordinates: 0
+   - Cross-split Board-level / Filename Leakage: 0
+2. **DeepPCB Defect Dataset (`datasets/defects/`)**:
+   - Total Images: 1,500 (Train: 850, Val: 150, Test: 500)
+   - Total Bounding Boxes: 10,013
+   - Corrupt Images: 0
+   - Out-of-bounds Coordinates: 0
+   - Cross-split Board-level / Filename Leakage: 0
+   - Report Output: `reports/dataset/validation_report.json`

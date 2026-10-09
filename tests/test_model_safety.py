@@ -223,12 +223,9 @@ class TestTaxonomyAlignmentReport(unittest.TestCase):
         # String-only fallback with non-colliding canonical names is identity.
         self.assertEqual(normalize_defect_class("pin-hole"), ("pin-hole", True, "pin-hole"))
         self.assertEqual(normalize_defect_class("open"), ("open", True, "open"))
-        # The colliding canonical strings 'short'/'spur' are ALSO legacy
-        # checkpoint strings (indices 3 and 4); a flat name table cannot
-        # resolve them to themselves, so the documented name-only fallback
-        # follows the alias table. This pins the known limitation explicitly.
-        self.assertEqual(normalize_defect_class("short"), ("spur", True, "short"))
-        self.assertEqual(normalize_defect_class("spur"), ("copper", True, "spur"))
+        # Canonical strings 'short'/'spur' resolve to themselves directly in the updated alias table.
+        self.assertEqual(normalize_defect_class("short"), ("short", True, "short"))
+        self.assertEqual(normalize_defect_class("spur"), ("spur", True, "spur"))
         # Legacy raw strings decode to their verified index-decoded canonicals.
         self.assertEqual(normalize_defect_class("missing_hole"), ("open", True, "missing_hole"))
         self.assertEqual(normalize_defect_class("mouse_bite"), ("short", True, "mouse_bite"))

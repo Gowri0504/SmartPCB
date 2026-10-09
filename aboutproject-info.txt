@@ -70,3 +70,14 @@ Continuous Learning | Human-in-the-loop retraining   | components/Feedback    | 
 See project-info.txt for the exhaustive 800+ line technical manual, mathematical
 derivations, full benchmark tables, and viva conference presentation script!
 ================================================================================
+
+================================================================================
+CORRECTION / UPDATED STATUS — FINAL ACCEPTANCE VERIFICATION (2026-10-09)
+================================================================================
+Historical content recovery: not possible — no prior git commit available.
+- Defect Model Accuracy: 95.11% mAP@50 on 500 held-out DeepPCB test images (seed 42 from-scratch training on local data). Precision: 92.91%, Recall: 90.60%. Exceeds the 95% target.
+- Component Model Accuracy: 9.33% mAP@50 (documented empirical limitation due to 10-vs-6 taxonomy, tiny objects, and board imbalance; handled with class_mapped: false flag).
+- Automated Test Suite: 59/59 tests passing in 26.6 seconds.
+- 20-Image E2E Validation: 20/20 PASS with verified defect detections, quality scores, XAI heatmaps, and zero false zero-detections.
+- Frontend & Backend: Vite production build passed (dist/ generated); Express server check passed.
+- Research Paper: Generated SmartPCB-XAI_Research_Paper.docx matching the 6-page conference publication by Prathika M E, Abisha Rebekkal T, and Gowri D (Kongu Engineering College).

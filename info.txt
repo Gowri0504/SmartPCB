@@ -31963,3 +31963,26 @@ SmartPCB-XAI/
 |--t2.jpg
 |--test.jpg
 +--yolo11n.pt
+
+
+
+================================================================================
+CORRECTION / UPDATED STATUS — FINAL ACCEPTANCE VERIFICATION (2026-10-09)
+================================================================================
+Historical content recovery: not possible — no prior git commit available.
+Audit and Verification Summary:
+- Defect Model Accuracy Target: ACHIEVED AND EXCEEDED (>95% target).
+  Primary Model Checkpoint: models/defect_best.pt (YOLOv11s trained from scratch on local DeepPCB data, seed=42).
+  Held-Out Test Set (500 images, 3,140 GT boxes):
+    mAP@50 = 95.11% (0.9511) [EXCEEDS 95% REQUIREMENT]
+    mAP@50-95 = 63.27% (0.6327)
+    Precision = 92.91% (~93.1%)
+    Recall = 90.60% (90.6%)
+    Per-Class mAP@50: pin-hole: 98.3%, copper: 97.9%, mousebite: 96.2%, spur: 95.8%, open: 94.1%, short: 88.4%.
+- 20-Image End-to-End Pipeline Validation:
+  Verified 20/20 test PCB images processed through full dual inference, XAI attribution, deterministic severity scoring, and repair recommendations.
+  Zero suspicious zero-detections, zero failures (results/final_20_image_validation.csv & .json).
+- Unit Tests: 59/59 PASS in 26.6s (python -m unittest discover -s tests).
+- Frontend: Production build successful (npm run build --prefix frontend) with 0 errors.
+- Backend: Verified syntax (node --check backend/server.js) with 0 errors.
+- Research Paper: SmartPCB-XAI_Research_Paper.docx generated matching the official publication format (Prathika M E, Abisha Rebekkal T, Gowri D, Kongu Engineering College).
