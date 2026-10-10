@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
-  Cpu, Eye, Layers, BarChart3, MessageSquarePlus, 
-  Award, Shield 
+import {
+  Cpu, Eye, Layers, BarChart3, MessageSquarePlus,
+  Award, Shield
 } from 'lucide-react';
 import { LiveInspection, InspectionResult } from './components/LiveInspection';
 import { DigitalTwin } from './components/DigitalTwin';
@@ -39,101 +39,111 @@ export default function App() {
 
   const engineOnline = systemStatus?.ai_engine?.reachable === true;
   const engineLabel = systemStatus
-    ? (engineOnline ? 'AI ENGINE ONLINE' : 'AI ENGINE UNREACHABLE')
+    ? (engineOnline ? 'ENGINE ONLINE' : 'ENGINE UNREACHABLE')
     : (statusError ? 'STATUS UNKNOWN' : 'CHECKING…');
+  const engineClass = engineOnline
+    ? 'status-chip status-chip--online is-live'
+    : systemStatus
+      ? 'status-chip status-chip--offline'
+      : 'status-chip status-chip--unknown';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen flex flex-col font-ui">
       {/* Top Industrial Header */}
-      <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30 text-white font-extrabold">
-              <Cpu className="w-6 h-6" />
+      <header className="hmi-header">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="brand-mark">
+              <Cpu className="w-5 h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base tracking-tight text-white">SmartPCB-XAI</span>
-                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800/60 font-bold">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="brand-title">SmartPCB Inspection Studio</span>
+                <span className="brand-tag">
                   Industry 4.0
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium">Explainable AI PCB Inspection & Manufacturing Analytics</p>
+              <p className="brand-sub">Automated Optical Inspection &amp; Manufacturing Analytics</p>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+          <nav className="nav-tablist hidden md:flex" role="tablist" aria-label="Primary">
             <button
+              role="tab"
+              aria-selected={activeTab === 'INSPECTION'}
               onClick={() => setActiveTab('INSPECTION')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
-                activeTab === 'INSPECTION' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className={`nav-tab ${activeTab === 'INSPECTION' ? 'is-active' : ''}`}
             >
-              <Eye className="w-3.5 h-3.5" />
-              Inspection Studio
+              <Eye width={15} height={15} />
+              Inspection
             </button>
             <button
+              role="tab"
+              aria-selected={activeTab === 'DIGITAL_TWIN'}
               onClick={() => setActiveTab('DIGITAL_TWIN')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
-                activeTab === 'DIGITAL_TWIN' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className={`nav-tab ${activeTab === 'DIGITAL_TWIN' ? 'is-active' : ''}`}
             >
-              <Layers className="w-3.5 h-3.5" />
-              Digital Twin
+              <Layers width={15} height={15} />
+              Board Map
             </button>
             <button
+              role="tab"
+              aria-selected={activeTab === 'ANALYTICS'}
               onClick={() => setActiveTab('ANALYTICS')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
-                activeTab === 'ANALYTICS' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className={`nav-tab ${activeTab === 'ANALYTICS' ? 'is-active' : ''}`}
             >
-              <BarChart3 className="w-3.5 h-3.5" />
+              <BarChart3 width={15} height={15} />
               Analytics
             </button>
             <button
+              role="tab"
+              aria-selected={activeTab === 'FEEDBACK'}
               onClick={() => setActiveTab('FEEDBACK')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
-                activeTab === 'FEEDBACK' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className={`nav-tab ${activeTab === 'FEEDBACK' ? 'is-active' : ''}`}
             >
-              <MessageSquarePlus className="w-3.5 h-3.5" />
-              Corrections Pipeline
+              <MessageSquarePlus width={15} height={15} />
+              Corrections
             </button>
             <button
+              role="tab"
+              aria-selected={activeTab === 'BENCHMARKS'}
               onClick={() => setActiveTab('BENCHMARKS')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
-                activeTab === 'BENCHMARKS' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className={`nav-tab ${activeTab === 'BENCHMARKS' ? 'is-active' : ''}`}
             >
-              <Award className="w-3.5 h-3.5" />
-              Research & Benchmarks
+              <Award width={15} height={15} />
+              Benchmarks
             </button>
           </nav>
 
+          {/* Mobile tab selector */}
+          <select
+            className="md:hidden select"
+            style={{ width: 'auto', maxWidth: 240 }}
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value as TabType)}
+          >
+            <option value="INSPECTION">Inspection</option>
+            <option value="DIGITAL_TWIN">Board Map</option>
+            <option value="ANALYTICS">Analytics</option>
+            <option value="FEEDBACK">Corrections</option>
+            <option value="BENCHMARKS">Benchmarks</option>
+          </select>
+
           {/* System Status Indicator — live probe of /api/system-status, never assumed */}
-          <div className="flex items-center gap-3 text-xs">
-            <div
-              title={systemStatus
-                ? `AI engine probe at ${systemStatus.checked_at}${engineOnline ? '' : ` — ${JSON.stringify(systemStatus.ai_engine.detail)}`}`
-                : (statusError || 'Probing backend…')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] border ${
-                engineOnline
-                  ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-400'
-                  : systemStatus
-                    ? 'bg-rose-950/60 border-rose-800/60 text-rose-400'
-                    : 'bg-slate-900 border-slate-700 text-slate-400'
-              }`}
-            >
-              <span className={`w-2 h-2 rounded-full ${engineOnline ? 'bg-emerald-400 animate-pulse' : systemStatus ? 'bg-rose-400' : 'bg-slate-500'}`}></span>
-              {engineLabel}
-            </div>
+          <div
+            title={systemStatus
+              ? `Engine probe at ${systemStatus.checked_at}${engineOnline ? '' : ` — ${JSON.stringify(systemStatus.ai_engine?.detail)}`}`
+              : (statusError || 'Probing backend…')}
+            className={engineClass}
+          >
+            {engineLabel}
           </div>
         </div>
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'INSPECTION' && <LiveInspection onInspectionComplete={setLastInspection} />}
         {activeTab === 'DIGITAL_TWIN' && (
           <DigitalTwin
@@ -147,29 +157,29 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-4 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="hmi-footer py-4 mt-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-blue-500" />
-            <span>SmartPCB-XAI &copy; 2026. Explainable Optical Inspection Platform for SMT Manufacturing.</span>
+            <span>SmartPCB Inspection Studio &copy; 2026. Automated Optical Inspection for SMT Manufacturing.</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] mono">
+          <div className="flex flex-wrap items-center gap-4 mono text-[11px]">
             <span>
-              AI Engine:{' '}
+              Engine:&nbsp;
               <b className={engineOnline ? 'text-emerald-400' : systemStatus ? 'text-rose-400' : 'text-slate-400'}>
                 {systemStatus ? (engineOnline ? 'REACHABLE' : 'UNREACHABLE') : 'UNKNOWN'}
               </b>
             </span>
             <span>
-              MongoDB:{' '}
+              Database:&nbsp;
               <b className={systemStatus?.mongodb?.connected ? 'text-emerald-400' : systemStatus ? 'text-rose-400' : 'text-slate-400'}>
                 {systemStatus?.mongodb?.state?.toUpperCase() || 'UNKNOWN'}
               </b>
             </span>
             {lastInspection?.model_version && typeof lastInspection.model_version === 'object' && (
               <span>
-                Last inference device:{' '}
-                <b className="text-blue-400">{lastInspection.model_version.inference_device || 'not reported'}</b>
+                Last run:&nbsp;
+                <b className="text-blue-400">{(lastInspection.model_version as any).inference_device || 'not reported'}</b>
               </span>
             )}
           </div>
