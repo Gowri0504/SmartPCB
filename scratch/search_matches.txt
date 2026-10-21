@@ -1,0 +1,52 @@
+.\aboutproject-info.txt:79: - Component Model Accuracy: 9.33% mAP@50 (documented empirical limitation due to 10-vs-6 taxonomy, tiny objects, and board imbalance; handled with class_mapped: false flag).
+.\COMPONENT_CLASS_REPORT.md:29: See FINAL_COMPONENT_MODEL_EVALUATION.md: test mAP50 0.09335 @0.25; recall
+.\COMPONENT_CLASS_SCHEMA.md:114: CPU: test mAP50 = 0.093346 @ conf 0.25 (0.09528 @ val-calibrated 0.15);
+.\FINAL_ACCEPTANCE_REPORT.md:92: - **mAP@50:** **9.33%** (at default 0.25 conf) / **9.53%** (at val-calibrated 0.15 conf)
+.\FINAL_COMPONENT_MODEL_EVALUATION.md:13: | 0.25 | default | 0.09335 | 0.04371 | 0.23196 |
+.\FINAL_COMPONENT_MODEL_EVALUATION.md:33: and the current refactored evaluator with raw persistence): mAP50 0.093346 in
+.\FINAL_IMPLEMENTATION_AUDIT.md:18: | **Component Detector Model** | `models/component_best.pt` | YES | YES | YES | YES | **PARTIAL** | YOLO component model (10 classes). Verified mAP@50 = 9.33% on curated test split due to 94.2% tiny-o
+.\FINAL_PROJECT_VALIDATION.md:128: **Impact:** This explains the catastrophic component model performance (mAP50 0.0933). High-resolution tiled inference is mandatory.
+.\FINAL_PROJECT_VALIDATION.md:206: - mAP50: 0.0933 (catastrophic)
+.\FINAL_PROJECT_VALIDATION.md:477: - **Current mAP50: 0.0933** (pre-improvement, low reliability)
+.\info.txt:809: EfficientNet-B3
+.\info.txt:1100: | Classification | EfficientNet-B3    |
+.\info.txt:4777: - components_curated test (50 imgs): mAP50=0.093346 @0.25 (unchanged from
+.\info.txt:4837: measured metrics (defect mAP50 0.91473/0.927359, component 0.093346 LOW,
+.\info2.txt:8: | **Component Detection Model** (`models/component_best.pt`) | YES | YES | YES | YES | **PARTIAL** | mAP@50 = 9.33% (default conf 0.25) / 9.53% (val-calibrated 0.15). Disclosed empirical limitation: 1
+.\info2.txt:55: │   └── component_best.pt                  # 10-class component detector (5.78 MB, 9.33% mAP@50)
+.\info2.txt:94: - Empirical test score: **9.33% mAP@50** (0.25 conf) / **9.53% mAP@50** (0.15 conf).
+.\project-info.txt:527: The deployed component detector (models/component_best.pt, 5.78 MB) is a 10-class model with 9.33% mAP@50 on the curated 6-class split. Unmapped classes (relay, buzzer, switch, battery, led) are flagg
+.\PROJECT_AUDIT.md:434: - Component model measured: test mAP50 **0.093346** — LOW reliability label applied (COMPONENT_CLASS_SCHEMA.md §6).
+.\README.md:197: - Component model (PARTIAL, name-based alignment): test **mAP50 = 0.093346** @0.25 — genuinely weak detector, labeled LOW reliability. 5 of 10 classes have zero GT in the local test split.
+.\README.md:210: - **Component Model Disparity**: 9.33% mAP@50 on curated 6-class split. Documented root causes: 10-vs-6 class mismatch, 94.2% tiny objects (<32×32px), 64% board imbalance. Addressed in production via 
+.\archive\debug_outputs\defect_raw_detections.json:437: 569.33,
+.\experiments\mini_defect\results.csv:15: 14,577.527,1.44051,2.33313,1.00126,0.0256,0.72638,0.13912,0.06381,1.47905,3.73853,1.03926,0.000245985,0.000245985,0.000245985
+.\metrics\bottleneck_error_decomposition.csv:6: open,FP_category,localization_err_samecls,1,2.56
+.\metrics\component_metrics.json:2525: "mAP50": 0.093346
+.\metrics\component_metrics.json:2542: 0.093346,
+.\metrics\threshold_sweep_component.csv:15: test,0.25,0.5,,0.342812,0.175283,0.231962,0.338307,0.168772,0.215952,0.093346
+.\metrics\raw\component_test_raw.json:1: [{"file": "fics_s1_front_x1536_y4096.jpg", "detections": [], "gt": [{"cls": "diode", "raw_cls": "diodes", "raw_cls_id": 2, "bbox": [349.0016, 170.0016, 612.00448, 343.0032]}]}, {"file": "fics_s1_front
+.\metrics\raw\component_val_raw.json:1: [{"file": "fics_s2_s2_back_x1024_y2048.jpg", "detections": [{"cls": "resistor", "raw_cls": "resistor", "raw_cls_id": 7, "confidence": 0.5153270363807678, "bbox": [442.5082092285156, 340.0437927246094,
+.\metrics\raw\defect_test_raw.json:1: [{"file": "00041200.jpg", "detections": [{"cls": "copper", "raw_cls": "spur", "raw_cls_id": 4, "confidence": 0.9056791067123413, "bbox": [228.33111572265625, 304.9828796386719, 261.0812683105469, 346.
+.\metrics\raw\defect_test_raw_singlepass_baseline.json:1: [{"file": "00041200.jpg", "detections": [{"cls": "copper", "raw_cls": "spur", "raw_cls_id": 4, "confidence": 0.9056791067123413, "bbox": [228.33111572265625, 304.9828796386719, 261.0812683105469, 346.
+.\metrics\raw\defect_val_raw.json:1: [{"file": "44000062.jpg", "detections": [{"cls": "pin-hole", "raw_cls": "spurious_copper", "raw_cls_id": 5, "confidence": 0.9027628898620605, "bbox": [137.73434448242188, 92.24406433105469, 170.436401
+.\metrics\raw\defect_val_raw_singlepass_baseline.json:1: [{"file": "44000062.jpg", "detections": [{"cls": "pin-hole", "raw_cls": "spurious_copper", "raw_cls_id": 5, "confidence": 0.9027628898620605, "bbox": [137.73434448242188, 92.24406433105469, 170.436401
+.\reports\model_evaluation\pcb_components_evaluation.json:13: "mAP_50": 0.0594,
+.\reports\model_evaluation\pcb_components_evaluation.json:14: "mAP_50_95": 0.0256
+.\reports\model_evaluation\pcb_components_evaluation.json:48: "ap50": 0.0256
+.\reports\model_evaluation\pcb_components_evaluation.json:52: "ap50": 0.0256
+.\reports\model_evaluation\pcb_components_evaluation.json:56: "ap50": 0.0256
+.\reports\model_evaluation\pcb_components_evaluation.json:60: "ap50": 0.0256
+.\reports\model_evaluation\eval_pcb_components\predictions.json:1: [{"image_id": "fics_s1_front_x1536_y4096", "file_name": "fics_s1_front_x1536_y4096.jpg", "category_id": 10, "bbox": [301.459, 162.868, 320.145, 184.108], "score": 0.01063}, {"image_id": "fics_s1_front
+.\reports\model_evaluation\eval_pcb_defects\predictions.json:1: [{"image_id": 41200, "file_name": "00041200.jpg", "category_id": 5, "bbox": [228.236, 305.827, 32.441, 39.906], "score": 0.83562}, {"image_id": 41200, "file_name": "00041200.jpg", "category_id": 3, "b
+.\results\final_20_image_validation.csv:4: 00041202.jpg,SUCCESS,0,4,mousebite;pin-hole;spur;open,,66.1,open,False,False,21.1931,432.5687,382.7031,394.0249,2.126,1237.8046,results\annotated\00041202_annotated.jpg
+.\results\final_20_image_validation.json:1177: "component_inference_ms": 432.5687,
+.\scratch\paper_text.txt:465: 0.25 Default  9.33%  4.37%  23.20%
+.\scripts\generate_8page_research_paper.py:158: "contrast, our component detector records an empirical mAP@50 of 9.33% across 89 curated test images—a performance deficit "
+.\scripts\generate_8page_research_paper.py:218: "3. Rigorous Empirical Honesty & Disparity Diagnosis: Transparent disclosure of component detector under-performance (9.33% "
+.\scripts\generate_8page_research_paper.py:572: "detailed class-level breakdown. In marked contrast to the defect model, the component detector achieves only 9.33% mAP@50 at the "
+.\scripts\generate_8page_research_paper.py:590: ["0.25 (Default)", "Standard framework operating point", "9.33%", "4.37%", "23.20%"],
+.\scripts\generate_8page_research_paper.py:792: "pre-training contamination. In contrast, we transparently documented our component detector's 9.33% mAP@50 performance on an imbalanced "
+.\scripts\generate_project_report_docx.py:832: "of 9.33% at default 0.25 confidence. A thorough audit identified four root causes: (1) 10-vs-6 taxonomy mismatch (five classes "
+.\scripts\generate_research_paper_docx.py:519: "only 9.33% mAP@50 at the default 0.25 threshold (9.53% at calibrated 0.15 threshold)."
+.\scripts\generate_research_paper_docx.py:537: ["0.25 (Default)", "Standard framework operating point", "9.33%", "4.37%", "23.20%"],

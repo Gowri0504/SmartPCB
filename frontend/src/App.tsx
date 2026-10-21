@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Cpu, Eye, Layers, BarChart3, MessageSquarePlus,
-  Award, Shield
+  Award, Shield, Sun, Moon
 } from 'lucide-react';
 import { LiveInspection, InspectionResult } from './components/LiveInspection';
 import { DigitalTwin } from './components/DigitalTwin';
@@ -24,6 +24,20 @@ export default function App() {
   const [lastInspection, setLastInspection] = useState<InspectionResult | null>(null);
   const [systemStatus, setSystemStatus] = useState<SystemStatus | null>(null);
   const [statusError, setStatusError] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem('smartpcb-theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch { /* storage unavailable */ }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('smartpcb-theme', theme); } catch { /* ignore */ }
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'));
 
   useEffect(() => {
     let cancelled = false;
@@ -130,14 +144,25 @@ export default function App() {
             <option value="BENCHMARKS">Benchmarks</option>
           </select>
 
-          {/* System Status Indicator — live probe of /api/system-status, never assumed */}
-          <div
-            title={systemStatus
-              ? `Engine probe at ${systemStatus.checked_at}${engineOnline ? '' : ` — ${JSON.stringify(systemStatus.ai_engine?.detail)}`}`
-              : (statusError || 'Probing backend…')}
-            className={engineClass}
-          >
-            {engineLabel}
+          {/* System Status + Theme Toggle */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun width={18} height={18} /> : <Moon width={18} height={18} />}
+            </button>
+            <div
+              title={systemStatus
+                ? `Engine probe at ${systemStatus.checked_at}${engineOnline ? '' : ` — ${JSON.stringify(systemStatus.ai_engine?.detail)}`}`
+                : (statusError || 'Probing backend…')}
+              className={engineClass}
+            >
+              {engineLabel}
+            </div>
           </div>
         </div>
       </header>
